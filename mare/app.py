@@ -38,11 +38,9 @@ def setup_mail_handler():
     ADMINS = ['stuart.powers@gmail.com']
     mail_handler = SMTPHandler('smtp.gmail.com',
                                 'mare.mailer@gmail.com',
-                                ['stuart.powers@gmail.com']
+                                ['stuart.powers@gmail.com'],
                                 'New Video Uploaded',
-                                ('mare.mailer',
-                                os.environ['MAREPASS'],),
-                                secure=())
+                                ('mare.mailer', os.environ['MAREPASS'],))
 
     mail_handler.setLevel(logging.DEBUG)
 
