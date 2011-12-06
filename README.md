@@ -12,10 +12,12 @@ How to get started
 
 cd $HOME
 
-if [ -x /usr/bin/python2.7 ] ;
+if [ -x /usr/bin/python2.7 ]; then
     virtualenv --python=python2.7 --no-site-packages mare_env
-else
+elif [ -x /usr/bin/python2.6 ]; then
     virtualenv --python=python2.6 --no-site-packages mare_env
+else
+    virtualenv --python=python --no-site-packages mare_env
 fi
 
 cd mare_env && git clone git@github.com:sente/mare.git
