@@ -12,13 +12,10 @@ How to get started
 
 cd $HOME
 
-if [ -x /usr/bin/python2.7 ]; then
-    virtualenv --python=python2.7 --no-site-packages mare_env
-elif [ -x /usr/bin/python2.6 ]; then
-    virtualenv --python=python2.6 --no-site-packages mare_env
-else
-    virtualenv --python=python --no-site-packages mare_env
-fi
+virtualenv --python=python2.7 --no-site-packages mare_env  
+
+#virtualenv --python=python2.6 --no-site-packages mare_env  # no 2.7? try 2.6...
+#virtualenv --python=python --no-site-packages mare_env # meh...
 
 cd mare_env && git clone git@github.com:sente/mare.git
 
@@ -34,6 +31,8 @@ python manage.py create_db
 
 python manage.py full_test
 
-python manage.py runserver
+python manage.py runserver -t 0.0.0.0 -p 5500
 
 ```
+
+
