@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+    <head>
+        <title>{% block title %}Welcome{% endblock %} | MA-RealEstateSchool.com</title>
+
+        {#
+        <link rel="stylesheet" href="http://sente.cc/~chris/style_playlist.css">
+        <link rel=stylesheet type=text/css href="http://sente.cc/~chris/style.css">
+        #}
+
+        <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-lightness/jquery-ui.css">
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+        <script src="{{url_for('static',filename='jquery.idle-timer.js')}}"></script>
+        <script src="http://static.flowplayer.org/js/flowplayer-3.2.6.min.js"></script> 
+        <script src="{{url_for('static',filename='utils.js')}}"></script>
+
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style_playlist.css') }}">
+
+
+
+        {% block header %} {% endblock %}
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27513053-1']);
+  _gaq.push(['_setDomainName', 'none']);
+  _gaq.push(['_setAllowLinker', true]);
+  _gaq.push(['_trackPageview']);
+
+//  (function() {
+//    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+//    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+//    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+//  })();
+
+</script>
+
+<script src="http://www.google-analytics.com/ga.js"></script>
+
+    </head>
+    <body>
+
+
+
+        <div class=page>
+            <h1>MA-RealEstateSchool.com</h1>
+            <div class=navigation>
+                
+
+                {% if g.user %}
+                <strong><em>{{g.user.email}}</em></strong>
+
+                    <span style="float:right;">
+                        <a href="{{ url_for('accounts.logout') }}">logout</a> |
+                        <a href="{{ url_for('accounts.change_password') }}">change password</a>
+                    </span>
+                {% else %}
+                    <a href="{{ url_for('accounts.login') }}">login</a> |
+                    <!--<a href="{{ url_for('accounts.register') }}">register</a> | -->
+                    <a href="{{ url_for('accounts.email_password') }}">recover password</a>
+                {% endif %}
+
+            </div>
+            {% with flashes = get_flashed_messages() %}
+                {% if flashes %}
+                    <ul class=flashes>
+                        {% for message in flashes %}
+                        <li><strong>{{ message }}</strong></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+            <div class=body>
+                {% if g.user %}
+                <center>
+                    <h2><a href="{{ url_for('accounts.videos') }}">Main Video Menu</a></h2>
+                </center>
+                {% endif %}
+                {% block body %}{% endblock %}
+            </div>
+            <div class=footer>
+                <a href="http://MA-RealEstateSchool.com"><strong>MA-RealEstateSchool.com</strong></a>
+                <a style="float:right;" href="{{ url_for('accounts.contact') }}"><strong>contact us</strong></a>
+            </div>
+
+
+        {% if g.user %}
+
+            <center>
+                <ul style="list-style-type:none;line-height:1.5em">
+                    <li>
+                    <a href="http://www.mass.gov/ocabr/licensee/dpl-boards/re/ceu/continuing-education-subject-matter-curricula/re57r07.html">Course Outline - Brokerage Relationships</a>
+                    </li>
+                    <li>
+                    <a href="http://www.mass.gov/ocabr/licensee/dpl-boards/re/ceu/continuing-education-subject-matter-curricula/re05rc01-contract-law.html">Course Outline - Contract Law</a>
+                    </li>
+                    <li>
+                    <a href="http://www.mass.gov/ocabr/licensee/dpl-boards/re/ceu/continuing-education-subject-matter-curricula/re09r07.html">Course Outline - Residential Rentals</a>
+                    </li>
+                    <li>
+                    <a href="http://www.mass.gov/ocabr/licensee/dpl-boards/re/ceu/continuing-education-subject-matter-curricula/re27rc71.html">Course Outline - 1031 Exchanges</a>
+                    </li>
+                    <li>
+                    <a href="http://www.mass.gov/ocabr/licensee/dpl-boards/re/ceu/continuing-education-subject-matter-curricula/re25rc08.html">Course Outline - Financing</a>
+                    </li>
+                    <li>
+                    <a href="http://www.mass.gov/ocabr/licensee/dpl-boards/re/ceu/continuing-education-subject-matter-curricula/re04r08-chapter-93a.html">Course Outline - Chapter 93A</a>
+                    </li>
+                    <li>
+                    <a href="http://shawneveret.com/2mikes/mare/MARES_CE_CourseOutline.doc">Course Outline and Policies</a>
+                    </li>
+                    <li>
+                    <a href="http://www.surveymonkey.com/s/5DXCNQL">Continuing Education Customer Survey</a>
+                    </li>
+                </ul>
+
+                <hr>
+                <ul style="list-style-type:none;line-height:1.5em">
+                    <li>
+                    <a href="http://www.proprofs.com/quiz-school/story.php?title=ma-real-estate-continuing-education-2brokerage-relationships">Quiz 1 - Brokerage Relationships</a>
+                    </li>
+                    <li>
+                    <a href="http://www.proprofs.com/quiz-school/story.php?title=ma-real-estate-continuing-education-1contract-law">Quiz 2 - Contract Law</a>
+                    </li>
+                    <li>
+                    <a href="http://www.proprofs.com/quiz-school/story.php?title=ma-real-estate-continuing-education-4rental">Quiz 3 - Residential Rentals</a>
+                    </li>
+                    <li>
+                    <a href="http://www.proprofs.com/quiz-school/story.php?title=1031-exchanges">Quiz 4 - 1031 Exchanges</a>
+                    </li>
+                    <li>
+                    <a href="http://www.proprofs.com/quiz-school/story.php?title=ma-real-estate-continuing-education-3financing">Quiz 5 - Financing</a>
+                    </li>
+                    <li>
+                    <a href="http://www.proprofs.com/quiz-school/story.php?title=93a">Quiz 6 - Chapter 93A</a>
+                    </li>
+                </ul>
+                <ul style="list-style-type:none;line-height:1.5em">
+                    <li>
+                    For Any Technical Questions, please email Mike at <a href="mailto://info@ma-realestateschool.com">info@ma-realestateschool.com</a> or call (978) 979-1061
+                    </li>
+                </ul>
+            </center>
+        
+        {% endif %}
+
+        </div>
+    </body>
+</html>

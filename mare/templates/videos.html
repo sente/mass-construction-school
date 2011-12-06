@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block header %}{% endblock %} 
+{% block body %}
+
+    <div id="playlist">
+        {% for s in stats %}
+            <div style="display:inline-block;">
+                <a href="/video/?video_id={{s.video.id}}">
+                    <strong>{{s.video.title}}</strong><br>
+
+                    <img src="http://isomerica.net/~stu/mare/imgs/{{ 'images2/' + s.video.module + '_small.jpg' }}" />
+                    <br />
+                    <strong>{{(100*s.watched)//s.video.duration}}%</strong>
+                </a>
+                <div id="stats_{{s.uid}}" class="progressbar"></div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        $(function(){
+            {% for s in stats %}
+            $('#stats_{{s.uid}}').each(function(){$(this).progressbar({value:{{100*s.watched/s.video.duration}}});})
+            {% endfor %}
+        });
+    </script>
+
+{% endblock %}

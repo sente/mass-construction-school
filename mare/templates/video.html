@@ -1,0 +1,153 @@
+{% extends "layout.html" %}
+{% block header %}
+{% endblock %} 
+{% block body %}
+
+<center>
+    <a href="{{video.module}}" style="display:block;width:704px;height:400px;" id="rtmpPlayer">
+        <img src="http://isomerica.net/~stu/mare/imgs/{{'images2/' + video.module + '.jpg' }}" style="width:704px; height:400px;" alt="{{video.module}}" />
+    </a>
+
+    <br>
+
+  <strong><a href="{{ url_for('accounts.videos') }}">Back to Main Video Menu</a></strong>
+    </center>
+        <script>
+
+            var _tracker = null;
+
+            var player=null;
+            $(document).ready(function() {
+
+                _tracker = _gat._getTracker("UA-27513053-1");
+                _tracker._trackPageview();
+
+
+                var furtherest = {{stat.watched}}; 
+
+                $j = jQuery.noConflict();
+                $j.idleTimer(5 * 60 * 1000); //300 seconds or 5 mins
+                player = flowplayer("rtmpPlayer", "http://releases.flowplayer.org/swf/flowplayer-3.2.7.swf", {
+                    plugins:  {
+                        rtmp: {
+                            url: 'flowplayer.rtmp-3.2.3.swf',
+                            netConnectionUrl: 'rtmp://s17k5dj3abuf5u.cloudfront.net/cfx/st',
+                            durationFunc: 'getStreamLength'
+                        }
+                    },
+                    logo: {
+                        fullscreenOnly: false,
+                        opacity: 0
+                    },
+
+                    clip: { provider: 'rtmp', autoPlay: true,
+
+                        onStart: function(clip) {            
+                            _tracker._trackEvent("Videos", "Play", clip.url);        
+                        },
+
+                        // track pause event for this clip. time (in seconds) is also tracked       
+                        onPause: function(clip) {            
+                            _tracker._trackEvent("Videos", "Pause", clip.url, parseInt(this.getTime()));        
+                        },                
+
+                        // track stop event for this clip. time is also tracked        
+                        onStop: function(clip) {            
+                            _tracker._trackEvent("Videos", "Stop", clip.url, parseInt(this.getTime()));
+                        },                
+
+                        // track finish event for this clip        
+                        onFinish: function(clip) {            
+                            _tracker._trackEvent("Videos", "Finish", clip.url);        
+                        } 
+                    
+                    },
+                    controls: {
+                        url: 'flowplayer.controls-tube-3.2.5.swf'
+                    } 
+                });
+
+                player.onLoad(function(){
+                    var once = false;
+
+                    clip = player.getClip(0);
+
+                    clip.onBegin(function() {
+                        if (once == false) {
+                            cueSetup();
+                            once = true;
+                            player.seek({{stat.watched}});
+                        }
+                    });
+
+
+                    clip.onFinish(clipFinish);
+                    clip.onBeforeSeek(function(start, stop){
+                        if (stop > furtherest) {
+                            player.seek(furtherest);
+                            alert("you cannot seek past what you've already seen")
+                            return false;
+                            //return true;
+                        }
+                        return true;
+                    });
+                });
+                function cueSetup(){
+                   // clip.onCuepoint(2000,function(){player.seek(furtherest);});
+
+                    var p=10;
+                    //alert("setting up");
+
+                    while (p <= {{video.duration}}) {
+                        clip.onCuepoint(p*1000, cueFire); 
+                        p = p + 5;
+                    }
+                }
+                function cueFire() {
+                    //alert("Cue Fired:" + player.getTime());
+
+                    $j.ajax({
+                        url: "{{url_for('accounts.watch')}}",
+                        data:{
+                            user_id:{{user.uid}},
+                            video_id:{{video.id}},
+                            length:player.getClip().fullDuration,
+                            time:player.getTime()
+                        },
+                        success: function(html){
+                            var test="";
+                           //console.log(html);
+                        }
+                    });
+
+                }
+                function clipFinish() {
+
+                    $j.ajax({
+                        url: "{{url_for('accounts.finish')}}",
+                        data:{
+                            user_id:{{user.uid}},
+                            video_id:{{video.id}},
+                            length:player.getClip().fullDuration,
+                            time:player.getTime()
+                        },
+                        success: function(html){
+                            var test="nothing";
+                           //console.log(html);
+                        }
+                    });
+                }
+                function newVideo(video) {
+                }
+
+                $j(document).bind("idle.idleTimer", function(){
+                    player.pause();
+                    alert("You must watch every video, you can not navigate away from the video or walk away from the the computer. If you do not move the mouse or use the keyboard for extended periods of time, the video will pause.");
+                });
+                player.play();
+                //player.seek(furtherest);
+            });
+        </script>
+
+{% endblock %}
+
