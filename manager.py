@@ -47,7 +47,7 @@ def drop_db():
 
 @manager.command
 def load_videos():
-    with open('mare/data/videos_final.dat', 'r') as f:
+    with open('mare/data/videos.dat', 'r') as f:
         for line in f.readlines():
             tup = line.strip().split("\t")
             module = tup[0]
