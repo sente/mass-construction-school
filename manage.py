@@ -4,7 +4,7 @@ from flaskext.script import Manager, prompt_bool
 from mare import create_app
 
 from mare.extensions import db
-from mare.models import User, Video, Parent, Child, Stats
+from mare.models import User, Video, Stats
 
 app = create_app('mare')
 manager = Manager(app)
@@ -88,8 +88,6 @@ def make_shell_context():
         db=db,
         User=User,
         Video=Video,
-        Parent=Parent,
-        Child=Child,
         Stats=Stats
     )
 
