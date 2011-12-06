@@ -1,0 +1,70 @@
+    .ui-progressbar {
+        height:1em;
+        color:red;
+        }
+
+
+/* playlist style */
+#playlist {
+    display:inline-block;
+	overflow-y:auto;
+	overflow-x:hidden;
+	border:1px solid #ccc;
+	background-color:#efefef;
+	margin-top:20px;
+    text-align:center;
+}
+
+
+/* playlist entry */
+#playlist a {
+	display:block;
+	padding:7px;
+	background-color:#fff;
+	border:1px solid #ccc;
+	font:11px "bitstream vera sans", "lucida grande",verdana;
+	text-decoration:none;
+	margin-top:7px;
+	color:#666;
+}
+
+/* different states of a playlist entry */
+#playlist a:hover {
+	background-color:#ffc;		
+}
+
+#playlist a.progress {
+	background-color:#efefef;	
+}
+
+
+/* elements inside playlist entry */
+#playlist a img {
+	border:0;	
+	/*float:left; */
+	margin-right:5px;
+	margin-left:5px;
+}
+
+#playlist div a strong {
+	color:#A77502;		
+	padding-bottom:5px;
+	margin-right:5px;
+	margin-left:5px;
+    margin-bottom:5px;
+}
+
+#playlist div a:hover strong {
+	color:#333;	
+}
+
+#playlist a em {
+	border:0;	
+	float:left;
+	color:#333;
+	font-style:normal;
+	margin-top:10px;
+	margin-right:5px;
+	margin-left:5px;
+}
+
