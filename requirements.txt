@@ -1,0 +1,8 @@
+pip install --upgrade Flask
+pip install --upgrade Flask-Mail
+pip install --upgrade Flask-Script
+pip install --upgrade Flask-SQLAlchemy
+pip install --upgrade Werkzeug
+pip install --upgrade jinja2
+
+
