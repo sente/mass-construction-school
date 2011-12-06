@@ -19,3 +19,11 @@ how to get started
 
 5. ```pip install -r requirements.txt```
 
+6. ```export MAREPASS=<passwd>```
+
+7. ```python manage.py create_db```
+
+8. ```python manage.py full_test```
+
+9. ```python manage.py runserver```
+
