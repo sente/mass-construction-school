@@ -9,5 +9,3 @@ class Video(db.Model):
     duration = db.Column(db.Integer)
     title = db.Column(db.String(250))
 
-
-#    id = db.Column('id', db.Integer, primary_key=True)
