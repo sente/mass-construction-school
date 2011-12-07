@@ -1,1 +1,1 @@
-from mare.app import create_app
+from mare.main import create_app
