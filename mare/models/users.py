@@ -15,7 +15,7 @@ class User(db.Model):
     name = db.Column(db.String)
     email = db.Column(db.String)
     password = db.Column(db.String)
-    brokernum = db.Column(db.Integer)
+    brokernum = db.Column(db.String)
 #    active = db.Column(db.Boolean)
 #    created = db.Column(db.DateTime)
 
