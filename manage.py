@@ -3,11 +3,13 @@ from flask import current_app
 from flaskext.script import Manager, prompt_bool
 from mare import create_app
 
-from mare.extensions import db
+from mare.extensions import SQLAlchemy
 from mare.models import User, Video, Stats
 
 app = create_app('mare')
 manager = Manager(app)
+
+db = SQLAlchemy()
 
 
 @manager.command
@@ -31,7 +33,7 @@ def create_user(name, brokernum, email, password):
 @manager.command
 def create_db():
     db.create_all()
-    db.session.commit()
+    #db.session.commit()
 
 
 
@@ -41,8 +43,6 @@ def create_db():
 def drop_db():
     if prompt_bool('Are you sure you want to destroy all your data?'):
         db.drop_all()
-
-
 
 
 @manager.command
@@ -69,7 +69,7 @@ def full_test():
     db.drop_all()
     db.create_all()
     load_videos()
-    stuart = User('Stuart Powers',12345,'stuart.powers@gmail.com','test')
+    stuart = User('Stuart Powers','12345','test@test.com','test')
     db.session.add(stuart)
     db.session.commit()
 
