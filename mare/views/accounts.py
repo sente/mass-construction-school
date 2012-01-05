@@ -6,7 +6,7 @@ import time
 
 
 import logging
-
+import subprocess
 
 from mare.models import Stats, User, Video
 
@@ -99,7 +99,23 @@ def videos():
         abort(401)
     videos = g.db.session.query(Video).all()
     stats = g.db.session.query(Stats).filter(Stats.user_uid==g.user.uid).all()
-    return render_template('videos.html' , videos=videos, stats=stats)
+
+    completed = []
+    incompleted = []
+    finished = False
+    for s in stats:
+        if s.watched == s.video.duration:
+            completed.append(s.video)
+        else:
+            incompleted.append(s.video)
+    if len(incompleted) == 0:
+        out = subprocess.Popen('/var/www/wsgi/MARE/mare/scripts/generate_certificate.py')
+        out.wait()
+        finished = True
+        flash('created PDF')
+
+
+    return render_template('videos.html' , videos=videos, completed=completed, incompleted=incompleted, finished=finished, stats=stats)
 
 
 @accounts.route('/video/', methods=['GET', 'POST'])
@@ -110,12 +126,16 @@ def video():
 
     user_id = g.user.uid
     video_id  = request.args.get('video_id', 1, type=int)
+    dev = request.args.get('dev', 0, type=int)
 
     mystats = g.db.session.query(Stats).filter(Stats.video_id==video_id).filter(Stats.user_uid==user_id).all()
     mystat = mystats[0]
 
+    if dev != 0:
+        flash('in debug mode')
+
     video = g.db.session.query(Video).filter(Video.id == video_id).first()
-    return render_template('video.html', video=video, user=g.user,stat=mystat)
+    return render_template('video.html', video=video, user=g.user, stat=mystat, dev=dev)
 
 
 @accounts.route('/watch/', methods=['GET', 'POST'])
@@ -134,7 +154,7 @@ def watch():
         mystat.watched = timestamp
         g.db.session.commit()
 
-    return '%d town' % mystats[0].watched
+    return '%d watch' % mystats[0].watched
 
 
 @accounts.route('/finish/', methods=['GET', 'POST'])
@@ -150,7 +170,25 @@ def finish():
     mystat.watched = mystat.video.duration
     g.db.session.commit()
 
-    return '%d town' % mystats[0].watched
+    return '%d finish' % mystats[0].watched
+
+@accounts.route('/set/', methods=['GET', 'POST'])
+def set_timestamp():
+    if 'user_email' not in session:
+        print "error"
+        abort(401)
+    user_id = request.args.get('user_id', None, type=int)
+    video_id = request.args.get('video_id', None, type=int)
+    timestamp = int(request.args.get('time', 0, type=float))
+
+
+    mystats = g.db.session.query(Stats).filter(Stats.video_id==video_id).filter(Stats.user_uid==user_id).all()
+    mystat = mystats[0]
+    mystat.watched = timestamp
+    g.db.session.commit()
+
+    return '%d set' % mystats[0].watched
+
 
 
 
