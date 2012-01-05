@@ -31,6 +31,9 @@ class Config(object):
     MAIL_USE_SSL = False
     MAIL_DEBUG = DEBUG
     MAIL_USERNAME = 'mare.mailer'
-    MAIL_PASSWORD = os.environ['MAREPASS']
     DEFAULT_MAIL_SENDER = 'mare.mailer@gmail.com'
+
+    if os.environ.has_key('MAREPASS'):
+        MAIL_PASSWORD = os.environ['MAREPASS']
+    MAIL_PASSWORD = 'marepasstown'
 
