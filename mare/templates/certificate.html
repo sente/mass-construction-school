@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block title %}Print Your Certificate{% endblock %}
+{% block body %}
+  <h2>Certificate</h2>
+  {% if error %}<div class=error><strong>Error:</strong> {{ error }}</div>{% endif %}
+  <form action="" method=post>
+    <dl>
+      <dt>Broker #
+      <dd><input type=text name=brokernum size=30 value="{{ request.form.brokernum}}">
+    </dl>
+    <div class=actions><input type=submit value="Get Certificate"></div>
+  </form>
+{% endblock %}
