@@ -203,20 +203,19 @@ def reg():
 def register():
 
     name = request.args.get('full_name', None, type=str)
-    brokernum = request.args.get('brokerrealtor', None, type=int)
     password = request.args.get('password', None, type=str)
     email = request.args.get('email', None, type=str)
+    #brokernum = request.args.get('brokerrealtor', None, type=str)
 
 
-    if name and brokernum and password and email:
+    if name and password and email:
 
-        user = User(name, brokernum, email, password)
+        user = User(name, email, password)
         user.setup_stats()
 
         session['user_email'] = user.email
 
-        return redirect(url_for('accounts.login',town='module1'))
-
+        return redirect(url_for('accounts.login', town='module1'))
     else:
         return redirect(url_for('accounts.login'))
 
