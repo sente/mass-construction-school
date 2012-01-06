@@ -19,7 +19,7 @@ class User(db.Model):
 #    active = db.Column(db.Boolean)
 #    created = db.Column(db.DateTime)
 
-    def __init__(self, name, brokernum, email, password):
+    def __init__(self, name, email, password, brokernum=None):
         self.name = name
         self.brokernum = brokernum
         self.email = email

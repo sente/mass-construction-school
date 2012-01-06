@@ -13,7 +13,7 @@ db = SQLAlchemy()
 
 
 @manager.command
-def create_user(name, brokernum, email, password):
+def create_user(name, email, password, brokernum=None):
     """
     Will create a user from supplied cli arguments.
     Since 'create_user' knows to check for an existing user first
@@ -21,7 +21,7 @@ def create_user(name, brokernum, email, password):
     """
 
     try:
-        user = User(name, brokernum, email, password)
+        user = User(name, email, password, brokernum)
         db.session.add(user)
         db.session.commit()
     except Exception, e:
@@ -69,7 +69,7 @@ def full_test():
     db.drop_all()
     db.create_all()
     load_videos()
-    stuart = User('Stuart Powers','12345','test@test.com','test')
+    stuart = User('Stuart Powers', 'test@test.com', 'test', brokernum=None)
     db.session.add(stuart)
     db.session.commit()
 
