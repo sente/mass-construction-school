@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from flask import Blueprint, url_for, redirect, flash, request, render_template, session, g, abort, current_app
+from flask import Blueprint, url_for, redirect, flash, request, render_template, session, g, abort, current_app, make_response
 from werkzeug import generate_password_hash, check_password_hash
 import time
 
@@ -109,14 +109,14 @@ def videos():
         else:
             incompleted.append(s.video)
     if len(incompleted) == 0:
-        try:
-            out = subprocess.Popen('/var/www/wsgi/MARE/mare/scripts/generate_certificate.py')
-            out.wait()
+#        try:
+#            out = subprocess.Popen('/var/www/wsgi/MARE/mare/scripts/generate_certificate.py')
+#            out.wait()
             finished = True
-#            flash('created PDF')
-        except:
-            flash("ERROR")
-
+##            flash('created PDF')
+#        except:
+#            flash("ERROR")
+#    finished = True
     return render_template('videos.html' , videos=videos, completed=completed, incompleted=incompleted, finished=finished, stats=stats)
 
 
@@ -138,7 +138,7 @@ def video():
         flash('in debug mode')
 
     video = g.db.session.query(Video).filter(Video.id == video_id).first()
-    return render_template('video.html', video=video, user=g.user, stat=mystat, dev=dev)
+    return render_template('video.html', email=g.user.email, video=video, user=g.user, stat=mystat, dev=dev)
 
 
 @accounts.route('/watch/', methods=['GET', 'POST'])
@@ -184,10 +184,11 @@ def finish():
         if nextstat:
             nextstat.status=nextstat.video_id
     except:
-        raise('rpoblem')
+        pass
+#        raise('rpoblem')
     g.db.session.commit()
 
-    return '%d finish %d' % (mystats[0].watched, nextstat.video_id)
+    return '%d finish' % (mystats[0].watched)
 
 @accounts.route('/set/', methods=['GET', 'POST'])
 def set_timestamp():
@@ -253,6 +254,36 @@ def contact():
         return redirect(url_for('accounts.contact'))
 
 
+@accounts.route('/print_cert', methods=['POST'])
+def print_cert():
+
+
+    brokernum = request.form['brokernum']
+    name = request.form['name']
+
+    DIR='/var/www/wsgi/MARE/mare/static/certificates'
+    CMD = """xvfb-run
+        --server-args="-screen 0, 1024x769x24"
+        cutycapt --url="http://sente.cc/stu/cert.html?brokernum=%s&name=%s"
+        --out=%s/certificate-%s.pdf
+        """ % (brokernum, name, DIR, brokernum)
+
+
+
+    cmd = CMD.strip().replace("\n"," ")
+    out = subprocess.Popen(cmd,shell=True)
+
+#    out = subprocess.Popen('/var/www/wsgi/MARE/mare/scripts/generate_certificate.py "%s" "%s"' %(name, brokernum), shell=True)
+    out.wait()
+
+    pdfdata = open('%s/certificate-%s.pdf' %(DIR,brokernum),'r').read()
+    resp = make_response(pdfdata)
+
+    resp.headers['Content-Type']= 'application/pdf'
+#    response.headers['Content-Type']: application/pdf
+
+    return resp
+
 @accounts.route('/certificate/', methods=['GET', 'POST'])
 def certificate():
     """Webpage used to Contact Us"""
@@ -263,10 +294,11 @@ def certificate():
 
     if request.method == 'POST':
         brokernum = request.form['brokernum']
+        name = request.form['name']
 
-        #out = subprocess.Popen('/var/www/wsgi/MARE/mare/scripts/generate_certificate.py')
-        #out.wait()
-        #finished = True
+        out = subprocess.Popen('/var/www/wsgi/MARE/mare/scripts/generate_certificate.py "%s" "%s"' %(name, brokernum), shell=True)
+        out.wait()
+        finished = True
 
         flash("Thanks, your certificate is here, %s" % brokernum)
         #sendmail('%s:%s' %(email,comments),comments)

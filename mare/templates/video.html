@@ -85,9 +85,11 @@
                     clip.onBeforeSeek(function(start, stop){
                         if (stop > furtherest) {
                             player.seek(furtherest);
+                            {% if email != 'test@test.com' %}
                             alert("you cannot seek past what you've already seen")
                             return false;
                             //return true;
+                            {% endif %}
                         }
                         return true;
                     });

@@ -2,9 +2,51 @@
 {% block header %}{% endblock %} 
 {% block body %}
 
+
+    {% if finished == True %}
+        <center>
+            <span style="display:block;background-color:yellow; width:20%;">
+                <h3><a href="{{url_for('static',filename='certificates/certificate-%s.pdf' % g.user.uid )}}">Congratulations! Print your certificate</a></h3>
+            </span>
+
+            <form action="/print_cert" method=post>
+        <dl>
+            <dt>Realtor/Broker #<input type=text name=brokernum size=30 value="">
+            <dd><input type=hidden name=name value="{{g.user.name}}">
+        </dl>
+        <div class=actions><input type=submit value="Print Certificate"></div>
+    </form>
+
+        </center>
+    {% endif %}
+
+
+
+
     <div id="playlist">
         {% for s in stats %}
 
+
+            {% if g.user.email == 'test@test.com'  %}
+
+                        {% if s.status == s.video_id %}
+                        <div style="display:inline-block;">
+                                <a href="/video/?video_id={{s.video.id}}">
+                            {% else %}
+                        <div style="display:inline-block;">
+                                <a href="/video/?video_id={{s.video.id}}">
+                        {% endif %}
+
+                            <strong>{{s.video.title}}</strong><br>
+
+                            <img src="http://isomerica.net/~stu/mare/imgs/{{ 'images2/' + s.video.module + '_small.jpg' }}" />
+                            <br />
+                            <strong>{{(100*s.watched)//s.video.duration}}%</strong>
+                        </a>
+                        <div id="stats_{{s.uid}}" class="progressbar"></div>
+                    </div>
+            {% else %}
+            
             {% if s.status > 0 %}
                 {% if s.status == s.video_id %}
                 <div style="display:inline-block;">
@@ -34,6 +76,11 @@
                 <div id="stats_{{s.uid}}" class="progressbar"></div>
             </div>
             {% endif %}
+
+            {% endif %}
+
+
+
 
         {% endfor %}
     </div>
