@@ -7,8 +7,8 @@ class Stats(db.Model):
     uid = db.Column(db.Integer, primary_key=True)
     user_uid = db.Column(db.Integer, db.ForeignKey('user.uid'))
     video_id = db.Column(db.Integer, db.ForeignKey('video.id'))
-    watched = db.Column(db.Integer)
     status = db.Column(db.Integer)
+    watched = db.Column(db.Integer)
     user = db.relationship("User")
     video = db.relationship("Video")
 
