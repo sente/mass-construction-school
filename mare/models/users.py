@@ -37,9 +37,13 @@ class User(db.Model):
     def setup_stats(self):
         count = 0
         for v in db.session.query(Video).all():
-            count += 0
+            count += 1
             s = Stats(self, v)
-            s.watched = count
+            s.watched = 0
+            if count == 1:
+                s.status = 1
+            else:
+                s.status = 0
             db.session.add(s)
             db.session.commit()
 

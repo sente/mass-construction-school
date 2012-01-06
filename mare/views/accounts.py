@@ -113,7 +113,7 @@ def videos():
             out = subprocess.Popen('/var/www/wsgi/MARE/mare/scripts/generate_certificate.py')
             out.wait()
             finished = True
-            flash('created PDF')
+#            flash('created PDF')
         except:
             flash("ERROR")
 
@@ -129,6 +129,7 @@ def video():
     user_id = g.user.uid
     video_id  = request.args.get('video_id', 1, type=int)
     dev = request.args.get('dev', 0, type=int)
+
 
     mystats = g.db.session.query(Stats).filter(Stats.video_id==video_id).filter(Stats.user_uid==user_id).all()
     mystat = mystats[0]
@@ -152,6 +153,10 @@ def watch():
 
     mystats = g.db.session.query(Stats).filter(Stats.video_id==video_id).filter(Stats.user_uid==user_id).all()
     mystat = mystats[0]
+
+    if mystat.status != mystat.video_id:
+        return "sadness"
+
     if mystat.watched < timestamp:
         mystat.watched = timestamp
         g.db.session.commit()
@@ -170,9 +175,19 @@ def finish():
     mystats = g.db.session.query(Stats).filter(Stats.video_id==video_id).filter(Stats.user_uid==user_id).all()
     mystat = mystats[0]
     mystat.watched = mystat.video.duration
+    mystat.status = video_id
+
+
+    nextstats = g.db.session.query(Stats).filter(Stats.video_id==video_id+1).filter(Stats.user_uid==user_id).all()
+    try:
+        nextstat = nextstats[0]
+        if nextstat:
+            nextstat.status=nextstat.video_id
+    except:
+        raise('rpoblem')
     g.db.session.commit()
 
-    return '%d finish' % mystats[0].watched
+    return '%d finish %d' % (mystats[0].watched, nextstat.video_id)
 
 @accounts.route('/set/', methods=['GET', 'POST'])
 def set_timestamp():
@@ -236,6 +251,27 @@ def contact():
         flash("Thanks, we've received your comments")
         sendmail('%s:%s' %(email,comments),comments)
         return redirect(url_for('accounts.contact'))
+
+
+@accounts.route('/certificate/', methods=['GET', 'POST'])
+def certificate():
+    """Webpage used to Contact Us"""
+    if request.method == 'GET':
+
+        return render_template('certificate.html')
+
+
+    if request.method == 'POST':
+        brokernum = request.form['brokernum']
+
+        #out = subprocess.Popen('/var/www/wsgi/MARE/mare/scripts/generate_certificate.py')
+        #out.wait()
+        #finished = True
+
+        flash("Thanks, your certificate is here, %s" % brokernum)
+        #sendmail('%s:%s' %(email,comments),comments)
+        return redirect(url_for('accounts.contact'))
+
 
 
 
