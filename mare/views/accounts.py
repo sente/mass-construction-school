@@ -109,11 +109,13 @@ def videos():
         else:
             incompleted.append(s.video)
     if len(incompleted) == 0:
-        out = subprocess.Popen('/var/www/wsgi/MARE/mare/scripts/generate_certificate.py')
-        out.wait()
-        finished = True
-        flash('created PDF')
-
+        try:
+            out = subprocess.Popen('/var/www/wsgi/MARE/mare/scripts/generate_certificate.py')
+            out.wait()
+            finished = True
+            flash('created PDF')
+        except:
+            flash("ERROR")
 
     return render_template('videos.html' , videos=videos, completed=completed, incompleted=incompleted, finished=finished, stats=stats)
 

@@ -16,8 +16,8 @@ class Config(object):
     SQLALCHEMY_RECORD_QUERIES = True
 
 
-    DATABASE = '/tmp/ma.db'
-    PER_PAGE = 30
+    CERTIFICATE_SCRIPT = "%s/scripts/generate_certificate.py" % this_directory
+    CERTIFICATE_DIR  = "%s/static/certificates" % this_directory
 
 
     #WTForms Settings
