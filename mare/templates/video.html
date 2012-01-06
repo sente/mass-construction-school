@@ -16,14 +16,16 @@
 
             var _tracker = null;
 
-            var player=null;
+            var furtherest = {{stat.watched}}; 
+            var player = null;
+
             $(document).ready(function() {
 
                 _tracker = _gat._getTracker("UA-27513053-1");
                 _tracker._trackPageview();
 
 
-                var furtherest = {{stat.watched}}; 
+                //var furtherest = {{stat.watched}}; 
 
                 $j = jQuery.noConflict();
                 $j.idleTimer(5 * 60 * 1000); //300 seconds or 5 mins
@@ -86,9 +88,9 @@
                         if (stop > furtherest) {
                             player.seek(furtherest);
                             {% if email != 'test@test.com' %}
-                            alert("you cannot seek past what you've already seen")
-                            return false;
-                            //return true;
+                                alert("you cannot seek past what you've already seen")
+                                return false;
+                                //return true;
                             {% endif %}
                         }
                         return true;
@@ -108,20 +110,21 @@
                 function cueFire() {
                     //alert("Cue Fired:" + player.getTime());
 
+                    var playertime = player.getTime();
                     $j.ajax({
                         url: "{{url_for('accounts.watch')}}",
                         data:{
                             user_id:{{user.uid}},
                             video_id:{{video.id}},
                             length:player.getClip().fullDuration,
-                            time:player.getTime()
+                            time:playertime
                         },
                         success: function(html){
-                            var test="";
-                           //console.log(html);
+                           if(playertime  > furtherest){
+                               furtherest = playertime;
+                           }
                         }
                     });
-
                 }
                 function clipFinish() {
 
