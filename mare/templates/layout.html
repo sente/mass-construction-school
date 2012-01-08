@@ -8,15 +8,17 @@
         <link rel=stylesheet type=text/css href="http://sente.cc/~chris/style.css">
         #}
 
-
-
         <script src="{{url_for('static',filename='jquery.min.js')}}"></script>
         <script src="{{url_for('static',filename='jquery-ui.min.js')}}"></script>
         <script src="{{url_for('static',filename='jquery.idle-timer.js')}}"></script>
         <script src="{{url_for('static',filename='flowplayer-3.2.6.min.js')}}"></script>
         <script src="{{url_for('static',filename='utils.js')}}"></script>
-        
+
+        <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-lightness/jquery-ui.css">
+        <!--
+        continue using the google hosted jquery-ui because images links
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='jquery-ui.css') }}">
+        -->
 
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style_playlist.css') }}">

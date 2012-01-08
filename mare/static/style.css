@@ -1,5 +1,9 @@
 body {
+    /*
     background: #fff url(http://i.imgur.com/rpcQA.gif) repeat-x left top;
+    */
+
+    background: #fff url(/static/images/rpcQA.gif) repeat-x left top;
     font-family: Arial, sans-serif;
     font-size: 14px;
 }
