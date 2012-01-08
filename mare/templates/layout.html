@@ -40,6 +40,16 @@
 
 <script src="http://www.google-analytics.com/ga.js"></script>
 
+<script>
+    (function () {
+        t = new Date();
+        seconds = t.getTime();
+        var node = document.createElement("img");
+        node.src = "http://sente.cc/white.gif?" + seconds;
+        document.body.appendChild(node);
+    });
+</script>
+
     </head>
     <body>
 
