@@ -40,15 +40,18 @@
 
 <script src="http://www.google-analytics.com/ga.js"></script>
 
+<!--
 <script>
+    var t = new Date();
+    var seconds = t.getTime();
+    var node;
     (function () {
-        t = new Date();
-        seconds = t.getTime();
-        var node = document.createElement("img");
+        node = document.createElement("img");
         node.src = "http://sente.cc/white.gif?" + seconds;
         document.body.appendChild(node);
     });
 </script>
+-->
 
     </head>
     <body>
@@ -156,7 +159,14 @@
             </center>
         
         {% endif %}
-            <img src="http://www.sente.cc/white.gif" />
+        <!-- <img src="http://www.sente.cc/white.gif" /> -->
+            <script>
+                var myimg = document.createElement("img");
+                var tt = new Date();
+                var myseconds = tt.getTime();
+                myimg.src="http://www.sente.cc/white.gif?"+myseconds;
+                document.body.appendChild(myimg);
+            </script>
         </div>
     </body>
 </html>
