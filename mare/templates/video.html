@@ -100,7 +100,6 @@
                    // clip.onCuepoint(2000,function(){player.seek(furtherest);});
 
                     var p=10;
-                    //alert("setting up");
 
                     while (p <= {{video.duration}}) {
                         clip.onCuepoint(p*1000, cueFire); 
@@ -110,14 +109,14 @@
                 function cueFire() {
                     //alert("Cue Fired:" + player.getTime());
 
-                    var playertime = player.getTime();
+                    var playertime = Math.round(player.getTime());
                     $j.ajax({
                         url: "{{url_for('accounts.watch')}}",
                         data:{
-                            user_id:{{user.uid}},
-                            video_id:{{video.id}},
-                            length:player.getClip().fullDuration,
-                            time:playertime
+                            user_id: {{user.uid}},
+                            video_id: {{video.id}},
+                            length: Math.round(player.getClip().fullDuration),
+                            time: playertime
                         },
                         success: function(html){
                            if(playertime  > furtherest){
@@ -133,12 +132,11 @@
                         data:{
                             user_id:{{user.uid}},
                             video_id:{{video.id}},
-                            length:player.getClip().fullDuration,
-                            time:player.getTime()
+                            length:Math.round(player.getClip().fullDuration),
+                            time:Math.Round(player.getTime())
                         },
                         success: function(html){
                             var test="nothing";
-                           //console.log(html);
                         }
                     });
                 }
@@ -150,8 +148,8 @@
                     alert("You must watch every video, you can not navigate away from the video or walk away from the the computer. If you do not move the mouse or use the keyboard for extended periods of time, the video will pause.");
                 });
                 $j(document).bind("active.idleTimer", function(){
-                        player.play();
-                          });
+                    player.play();
+                });
                 //player.play();
                 //player.seek(furtherest);
             });
