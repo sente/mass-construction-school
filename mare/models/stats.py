@@ -19,5 +19,5 @@ class Stats(db.Model):
         self.watched = 0
 
     def __repr__(self):
-        return "<Stats('%r:%r:%d')>" % (self.user.name, self.video.module, self.status, self.watched)
+        return "<Stats('%r:%r:%d:%d')>" % (self.user.name, self.video.module, self.status, self.watched)
 
