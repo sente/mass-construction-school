@@ -149,7 +149,10 @@
                     player.pause();
                     alert("You must watch every video, you can not navigate away from the video or walk away from the the computer. If you do not move the mouse or use the keyboard for extended periods of time, the video will pause.");
                 });
-                player.play();
+                $j(document).bind("active.idleTimer", function(){
+                        player.play();
+                          });
+                //player.play();
                 //player.seek(furtherest);
             });
         </script>
