@@ -104,11 +104,12 @@ def videos():
     incompleted = []
     finished = False
     for s in stats:
-        if s.watched == s.video.duration:
+        if s.watched >= s.video.duration:
             completed.append(s.video)
         else:
             incompleted.append(s.video)
     if len(incompleted) == 0:
+#        print "finished = 0"
 #        try:
 #            out = subprocess.Popen('/var/www/wsgi/MARE/mare/scripts/generate_certificate.py')
 #            out.wait()
