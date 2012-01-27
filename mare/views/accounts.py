@@ -123,7 +123,7 @@ def videos():
 @accounts.route('/video/', methods=['GET', 'POST'])
 def video():
     if 'user_email' not in session:
-        print "error"
+        print "error /video/"
         abort(401)
 
     user_id = g.user.uid
@@ -144,7 +144,7 @@ def video():
 @accounts.route('/watch/', methods=['GET', 'POST'])
 def watch():
     if 'user_email' not in session:
-        print "error"
+        print "error /watch/"
         abort(401)
     user_id = request.args.get('user_id', None, type=int)
     video_id = request.args.get('video_id', None, type=int)
@@ -167,7 +167,7 @@ def watch():
 @accounts.route('/finish/', methods=['GET', 'POST'])
 def finish():
     if 'user_email' not in session:
-        print "error"
+        print "error /finish/"
         abort(401)
     user_id = request.args.get('user_id', None, type=int)
     video_id = request.args.get('video_id', None, type=int)
@@ -193,7 +193,7 @@ def finish():
 @accounts.route('/set/', methods=['GET', 'POST'])
 def set_timestamp():
     if 'user_email' not in session:
-        print "error"
+        print "error /set/"
         abort(401)
     user_id = request.args.get('user_id', None, type=int)
     video_id = request.args.get('video_id', None, type=int)
@@ -311,7 +311,7 @@ def certificate():
 @accounts.route('/change_password/', methods=['GET', 'POST'])
 def change_password():
     if 'user_email' not in session:
-        print "error"
+        print "error /change_password/"
         abort(401)
     if request.method == 'GET':
         return render_template('change_password.html')
