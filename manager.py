@@ -86,9 +86,9 @@ def run_stats():
         lastwatched = filter(lambda x:  x.status,ustats)
         if lastwatched:
             lastvid = sorted(lastwatched,key=lambda x: x.video.id)[-1]
-            print "%d\t%d\t%s" % (lastvid.video.id,lastvid.watched,lastvid.user.email)
+            print "%d\t%d\t%d\t%s" % (lastvid.video.id,lastvid.watched,lastvid.user.uid,lastvid.user.email)
         else:
-            print "100\t100\t%s" % u.email
+            print "100\t100\t%d\t%s" % (u.uid,u.email)
 
 
 
