@@ -145,8 +145,6 @@ def video():
 @accounts.route('/watch/', methods=['GET', 'POST'])
 def watch():
 
-    #for k in session.keys():
-    #    print k
     if 'user_email' not in session:
         print "error /watch/"
         return jsonify(data="error", reason="no session_email")
@@ -161,14 +159,12 @@ def watch():
 
     if mystat.status != mystat.video_id:
         return jsonify(data="error", reason="mystat.status != mystat.video.id")
-#        return "sadness"
 
     if mystat.watched < timestamp:
         mystat.watched = timestamp
         g.db.session.commit()
 
     return jsonify(data="success", reason = mystats[0].watched)
-#    return '%d watch' % mystats[0].watched
 
 
 @accounts.route('/finish/', methods=['GET', 'POST'])
@@ -377,7 +373,7 @@ def email_password():
         else:
             return "ERROR bad form types"
 
-        return "ERRROR"
+        return "ERROR"
 
 
 

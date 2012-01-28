@@ -30,7 +30,7 @@ class User(db.Model):
 
 
     def send_mail(self, subject, message):
-        msg = Message( subject, recipients = [self.email], body = message)
+        msg = Message(subject, recipients = [self.email], body=message, bcc=['mare.mailer@gmail.com'])
         mail.send(msg)
 
 
