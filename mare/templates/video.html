@@ -116,9 +116,10 @@
                             user_id: {{user.uid}},
                             video_id: {{video.id}},
                             length: Math.round(player.getClip().fullDuration),
-                            time: playertime
+                            time: playertime,
                         },
-                        success: function(html){
+                        dataType:"json",
+                        success: function(data){
                            if(playertime  > furtherest){
                                furtherest = playertime;
                            }

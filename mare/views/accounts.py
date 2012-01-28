@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from flask import Blueprint, url_for, redirect, flash, request, render_template, session, g, abort, current_app, make_response
+from flask import Blueprint, url_for, redirect, flash, request, render_template, session, g, abort, current_app, make_response, jsonify
 from werkzeug import generate_password_hash, check_password_hash
 import time
 
@@ -144,8 +144,12 @@ def video():
 
 @accounts.route('/watch/', methods=['GET', 'POST'])
 def watch():
+
+    #for k in session.keys():
+    #    print k
     if 'user_email' not in session:
         print "error /watch/"
+        return jsonify(data="error", reason="no session_email")
         abort(401)
     user_id = request.args.get('user_id', None, type=int)
     video_id = request.args.get('video_id', None, type=int)
@@ -156,13 +160,15 @@ def watch():
     mystat = mystats[0]
 
     if mystat.status != mystat.video_id:
-        return "sadness"
+        return jsonify(data="error", reason="mystat.status != mystat.video.id")
+#        return "sadness"
 
     if mystat.watched < timestamp:
         mystat.watched = timestamp
         g.db.session.commit()
 
-    return '%d watch' % mystats[0].watched
+    return jsonify(data="success", reason = mystats[0].watched)
+#    return '%d watch' % mystats[0].watched
 
 
 @accounts.route('/finish/', methods=['GET', 'POST'])
