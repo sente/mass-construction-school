@@ -1,21 +1,8 @@
+-- load_data.sql
+-- This should be ran after `schema.sql`
 
-INSERT INTO "stats" VALUES(1,1,1,15,1);
-INSERT INTO "stats" VALUES(2,1,2,0,0);
-INSERT INTO "stats" VALUES(3,1,3,0,0);
-INSERT INTO "stats" VALUES(4,1,4,0,0);
-INSERT INTO "stats" VALUES(5,1,5,0,0);
-INSERT INTO "stats" VALUES(6,1,6,0,0);
-INSERT INTO "stats" VALUES(7,1,7,0,0);
-INSERT INTO "stats" VALUES(8,1,8,0,0);
-INSERT INTO "stats" VALUES(9,1,9,0,0);
-INSERT INTO "stats" VALUES(10,1,10,0,0);
-INSERT INTO "stats" VALUES(11,1,11,0,0);
-INSERT INTO "stats" VALUES(12,1,12,0,0);
-INSERT INTO "stats" VALUES(13,1,13,0,0);
-INSERT INTO "stats" VALUES(14,1,14,0,0);
-INSERT INTO "stats" VALUES(15,1,15,0,0);
 
-INSERT INTO "user" VALUES(1,'Stuart Powers','stuart.powers@gmail.com','test',NULL);
+-- CREATE VIDEO ENTRIES
 
 INSERT INTO "video" VALUES(1,'module1_1a',2488,'Module 1 - Part 1');
 INSERT INTO "video" VALUES(2,'module1_2a',3479,'Module 1 - Part 2');
@@ -32,3 +19,27 @@ INSERT INTO "video" VALUES(12,'module5_3a',1441,'Module 5 - Part 3');
 INSERT INTO "video" VALUES(13,'module6_1a',3443,'Module 6 - Part 1');
 INSERT INTO "video" VALUES(14,'module6_2a',2437,'Module 6 - Part 2');
 INSERT INTO "video" VALUES(15,'module6_3a',104,'Module 6 - Part 3');
+
+
+-- CREATE A TEST USER ENTRY
+
+INSERT INTO "user" VALUES(1,'Stuart Powers','stuart.powers@gmail.com','test',NULL);
+
+
+-- CREATE STATS ENTIRES FOR THE TEST USER
+
+INSERT INTO "stats" VALUES(1,1,1,0,1);
+INSERT INTO "stats" VALUES(2,1,2,0,0);
+INSERT INTO "stats" VALUES(3,1,3,0,0);
+INSERT INTO "stats" VALUES(4,1,4,0,0);
+INSERT INTO "stats" VALUES(5,1,5,0,0);
+INSERT INTO "stats" VALUES(6,1,6,0,0);
+INSERT INTO "stats" VALUES(7,1,7,0,0);
+INSERT INTO "stats" VALUES(8,1,8,0,0);
+INSERT INTO "stats" VALUES(9,1,9,0,0);
+INSERT INTO "stats" VALUES(10,1,10,0,0);
+INSERT INTO "stats" VALUES(11,1,11,0,0);
+INSERT INTO "stats" VALUES(12,1,12,0,0);
+INSERT INTO "stats" VALUES(13,1,13,0,0);
+INSERT INTO "stats" VALUES(14,1,14,0,0);
+INSERT INTO "stats" VALUES(15,1,15,0,0);
