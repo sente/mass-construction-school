@@ -26,5 +26,15 @@ sqlite3 mare/dev.db < mare/data/load_data.sql
 python manager.py runserver -t 0.0.0.0 -p 5500
 ```
 
-
 After running the above code point your browser to 127.0.0.1:5500 and login as stuart.powers@gmail.com:test
+
+
+For the extremely lazy
+----------------------
+
+download one_click_install.sh
+
+```bash
+source one_click_install.sh
+```
+
