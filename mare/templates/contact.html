@@ -5,10 +5,6 @@
   {% if error %}<div class=error><strong>Error:</strong> {{ error }}</div>{% endif %}
   <form action="" method=post>
     <dl>
-        {#
-      <dt>Username:
-      <dd><input type=text name=username size=30 value="{{ request.form.username }}">
-      #}
       <dt>E-Mail:
       <dd><input type=text name=email size=30 value="{{ g.user.email }}" placeholder="{{g.user.email}}" />
 

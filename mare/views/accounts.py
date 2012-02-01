@@ -253,7 +253,7 @@ def contact():
         comments = request.form['comments']
 
         flash("Thanks, we've received your comments")
-        sendmail('%s:%s' %(email,comments),comments)
+        sendmail('%s:%s' %(email,comments),email+':'+comments)
         return redirect(url_for('accounts.contact'))
 
 
@@ -367,13 +367,14 @@ def email_password():
             user = g.db.session.query(User).filter_by(email=formemail).first()
             if user:
                 user.send_mail("your lost password", "Your password is %s" %(user.password))
-                return "your password has been emailed"
+                flash("Your password has been emailed")
+                return redirect(url_for('accounts.email_password'))
             else:
-                return "ERROR"
-        else:
-            return "ERROR bad form types"
+                flash("%s not found in the database" % formemail)
+                return redirect(url_for('accounts.email_password'))
 
-        return "ERROR"
+        flash("There was an error when trying to send the password" % formemail)
+        return redirect(url_for('accounts.email_password'))
 
 
 
