@@ -2,5 +2,6 @@ Flask
 Flask-Mail
 Flask-Script
 Flask-SQLAlchemy
+Flask-Admin
 #Werkzeug
 #jinja2
