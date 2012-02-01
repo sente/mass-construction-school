@@ -7,11 +7,9 @@
     <a href="{{video.module}}" style="display:block;width:704px;height:400px;" id="rtmpPlayer">
         <img src="{{url_for('static', filename='images/%s_large.jpg' % video.module)}}" style="width:704px; height:400px;" alt="{{video.module}}" />
     </a>
-
     <br>
-
   <strong><a href="{{ url_for('accounts.videos') }}">Back to Main Video Menu</a></strong>
-    </center>
+</center>
         <script>
 
             var _tracker = null;
@@ -150,8 +148,6 @@
                 $j(document).bind("active.idleTimer", function(){
                     player.play();
                 });
-                //player.play();
-                //player.seek(furtherest);
             });
         </script>
 
