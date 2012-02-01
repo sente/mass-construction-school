@@ -23,7 +23,20 @@ def create_user(name, email, password, brokernum=None):
     try:
         user = User(name, email, password, brokernum)
         db.session.add(user)
+
+        count = 0
+        for v in db.session.query(Video).all():
+            count += 1
+            s = Stats(user, v)
+            s.watched = 0
+            if count == 1:
+                s.status = 1
+            else:
+                s.status = 0
+            db.session.add(s)
+
         db.session.commit()
+
     except Exception, e:
         print e
 
