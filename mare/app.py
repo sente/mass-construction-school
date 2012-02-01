@@ -11,7 +11,8 @@ from datetime import datetime
 from contextlib import closing
 from flask import Flask, request, session, url_for, redirect, render_template, abort, g, flash, jsonify
 from werkzeug import check_password_hash, generate_password_hash
-
+from flask.ext import admin
+from flask.ext.admin.datastore.sqlalchemy import SQLAlchemyDatastore
 
 import os
 import sys
@@ -25,6 +26,7 @@ from mare.extensions import SQLAlchemy
 from mare.extensions import mail
 from mare.extensions import sendmail
 from mare.views.accounts import accounts
+from mare.models import User, Video, Stats
 
 #from flaskext.sqlalchemy import SQLAlchemy
 
@@ -63,6 +65,10 @@ def create_app(name):
     db = SQLAlchemy()
     db.init_app(app)
     mail.init_app(app)
+
+    datastore = SQLAlchemyDatastore((User, Stats, Video), db.session)
+    admin_blueprint = admin.create_admin_blueprint(datastore)
+    app.register_blueprint(admin_blueprint, url_prefix='/secret_admin')
 
     app.logger.addHandler(setup_mail_handler())
 
