@@ -21,10 +21,9 @@ cd mare
 
 pip install -r requirements.txt
 
-export MAREPASS=YOUREMAILPASSWORD #change this to the password
+sqlite3 mare/dev.db < mare/data/schema.sql
+sqlite3 mare/dev.db < mare/data/load_data.sql
 
-python manage.py create_db
-python manage.py full_test
 python manage.py runserver -t 0.0.0.0 -p 5500
 
 ```
