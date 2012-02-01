@@ -5,7 +5,7 @@
 
 <center>
     <a href="{{video.module}}" style="display:block;width:704px;height:400px;" id="rtmpPlayer">
-        <img src="http://isomerica.net/~stu/mare/imgs/{{'images2/' + video.module + '.jpg' }}" style="width:704px; height:400px;" alt="{{video.module}}" />
+        <img src="{{url_for('static', filename='images/images2/%s.jpg' % video.module)}}" style="width:704px; height:400px;" alt="{{video.module}}" />
     </a>
 
     <br>
