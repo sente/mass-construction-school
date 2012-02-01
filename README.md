@@ -7,7 +7,7 @@ How to get started
 ------------------
 
 
-```
+```bash
 cd $HOME
 
 virtualenv --python=python2.7 --no-site-packages mare_env
