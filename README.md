@@ -32,7 +32,7 @@ After running the above code point your browser to 127.0.0.1:5500 and login as s
 For the extremely lazy
 ----------------------
 
-download one_click_install.sh
+download [one_click_install.sh](one_click_install.sh)
 
 ```bash
 source one_click_install.sh
