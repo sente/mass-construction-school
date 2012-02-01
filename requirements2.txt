@@ -1,0 +1,17 @@
+http://pypi.python.org/packages/source/F/Flask/Flask-0.8.tar.gz#md5=a5169306cfe49b3b369086f2a63816ab
+http://pypi.python.org/packages/source/F/Flask-Mail/Flask-Mail-0.6.1.tar.gz#md5=20b54beaed3cb9ff45f239cfbdf34961
+http://pypi.python.org/packages/source/F/Flask-Script/Flask-Script-0.3.1.tar.gz#md5=76b1a9c69493190c27c9dc09e5da6885
+http://pypi.python.org/packages/source/F/Flask-SQLAlchemy/Flask-SQLAlchemy-0.15.tar.gz#md5=d69571aee51eec584b0978c35ca047ba
+http://pypi.python.org/packages/source/F/Flask-Admin/Flask-Admin-0.3.0.tar.gz#md5=641c4caaa66aed3e15b67660d1e647d6
+http://pypi.python.org/packages/source/W/Werkzeug/Werkzeug-0.8.2.tar.gz#md5=d4fcc1c9c5a4c4d148b87e5b581f9dea
+http://pypi.python.org/packages/source/J/Jinja2/Jinja2-2.6.tar.gz#md5=1c49a8825c993bfdcf55bb36897d28a2
+http://pypi.python.org/packages/source/l/lamson/lamson-1.1.tar.gz#md5=a5673d0fe9e8def9d2dfe9705f832a83
+http://pypi.python.org/packages/source/b/blinker/blinker-1.2.tar.gz#md5=6b0a876f0778084e97935a951ea96ded
+http://argparse.googlecode.com/files/argparse-1.2.1.tar.gz
+http://pypi.python.org/packages/source/S/SQLAlchemy/SQLAlchemy-0.7.5.tar.gz#md5=5bce21d5dcf055addf564442698e58e5
+http://pypi.python.org/packages/source/W/WTForms/WTForms-0.6.3.zip#md5=e0a64ff0b37b925e03621446cbfdba85
+http://pypi.python.org/packages/source/c/chardet/chardet-1.0.1.tar.gz#md5=7c28b02bca7847c13bebedaf4df6c5a3
+http://pypi.python.org/packages/source/m/mock/mock-0.7.2.tar.gz#md5=0e63747b20e67f7d3e563bc6fd5b88d3
+http://pypi.python.org/packages/source/n/nose/nose-1.1.2.tar.gz#md5=144f237b615e23f21f6a50b2183aa817
+http://pypi.python.org/packages/source/p/python-daemon/python-daemon-1.6.tar.gz#md5=c774eda27d6c5d80b42037826d29e523
+http://pylockfile.googlecode.com/files/lockfile-0.9.1.tar.gz
