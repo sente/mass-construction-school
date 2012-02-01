@@ -22,10 +22,10 @@
 
 
     <div id="playlist">
-        {% for s in stats -%}
+        {%- for s in stats -%}
 
 
-            {% if g.user.email == 'test@test.com'  -%}
+            {%- if g.user.email == 'test@test.com' -%}
 
                         {% if s.status == s.video_id -%}
                         <div style="display:inline-block;">
@@ -37,15 +37,15 @@
 
                             <strong>{{s.video.title}}</strong><br>
 
-                            <img src="{{url_for('static', filename='images/images2/%s_small.jpg' % s.video.module)}}" />
+                            <img src="{{url_for('static', filename='images/%s_small.jpg' % s.video.module)}}" />
                             <br />
                             <strong>{{(100*s.watched)//s.video.duration}}%</strong>
                         </a>
                         <div id="stats_{{s.uid}}" class="progressbar"></div>
                     </div>
-            {% else %}
+            {%- else -%}
             
-                {% if s.status > 0 %}
+                {% if s.status > 0 -%}
                     {% if s.status == s.video_id %}
                     <div style="display:inline-block;">
                             <a href="/video/?video_id={{s.video.id}}">
@@ -55,28 +55,28 @@
                     {% endif %}
 
                         <strong>{{s.video.title}}</strong><br>
-                        <img src="{{url_for('static', filename='images/images2/%s_small.jpg' % s.video.module)}}" />
+                        <img src="{{url_for('static', filename='images/%s_small.jpg' % s.video.module)}}" />
                         <br />
                         <strong>{{(100*s.watched)//s.video.duration}}%</strong>
                     </a>
                     <div id="stats_{{s.uid}}" class="progressbar"></div>
                 </div>
-                {% else %}
+                {%- else -%}
                 <div style="display:inline-block;">
                         <a href="#" onclick="alert('You must watch the videos in order');return false;";>
                         <strong>{{s.video.title}}</strong><br>
-                        <img src="{{url_for('static', filename='images/images2/%s_small.jpg' % s.video.module)}}" />
+                        <img src="{{url_for('static', filename='images/%s_small.jpg' % s.video.module)}}" />
                         <br />
                         <strong>{{(100*s.watched)//s.video.duration}}%</strong>
                         </a> 
                     <div id="stats_{{s.uid}}" class="progressbar"></div>
                 </div>
-                {% endif %}
+                {%- endif -%}
 
-            {% endif %}
+            {%- endif -%}
 
 
-        {% endfor %}
+        {%- endfor -%}
 
         <!--
 
