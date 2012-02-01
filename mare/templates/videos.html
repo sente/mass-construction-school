@@ -6,20 +6,15 @@
     {% if finished == True %}
         <center>
             <span style="display:block;background-color:yellow; width:20%;">
-                <!--
-                <h3><a href="{{url_for('static',filename='certificates/certificate-%s.pdf' % g.user.uid )}}">Congratulations! Print your certificate</a></h3>
-                -->
                 <h3>Congratulations! Print your certificate</h3>
             </span>
-
             <form action="/print_cert" method=post>
-        <dl>
-            <dt>Realtor/Broker #<input type=text name=brokernum size=30 value="">
-            <dd><input type=hidden name=name value="{{g.user.name}}">
-        </dl>
-        <div class=actions><input type=submit value="Print Certificate"></div>
-    </form>
-
+                <dl>
+                    <dt>Realtor/Broker #<input type=text name=brokernum size=30 value="">
+                    <dd><input type=hidden name=name value="{{g.user.name}}">
+                </dl>
+                <div class=actions><input type=submit value="Print Certificate"></div>
+            </form>
         </center>
     {% endif %}
 
@@ -42,7 +37,7 @@
 
                             <strong>{{s.video.title}}</strong><br>
 
-                            <img src="http://isomerica.net/~stu/mare/imgs/{{ 'images2/' + s.video.module + '_small.jpg' }}" />
+                            <img src="{{url_for('static', filename='images/images2/%s_small.jpg' % s.video.module)}}" />
                             <br />
                             <strong>{{(100*s.watched)//s.video.duration}}%</strong>
                         </a>
@@ -60,8 +55,7 @@
                     {% endif %}
 
                         <strong>{{s.video.title}}</strong><br>
-
-                        <img src="http://isomerica.net/~stu/mare/imgs/{{ 'images2/' + s.video.module + '_small.jpg' }}" />
+                        <img src="{{url_for('static', filename='images/images2/%s_small.jpg' % s.video.module)}}" />
                         <br />
                         <strong>{{(100*s.watched)//s.video.duration}}%</strong>
                     </a>
@@ -71,7 +65,7 @@
                 <div style="display:inline-block;">
                         <a href="#" onclick="alert('You must watch the videos in order');return false;";>
                         <strong>{{s.video.title}}</strong><br>
-                        <img src="http://isomerica.net/~stu/mare/imgs/{{ 'images2/' + s.video.module + '_small.jpg' }}" />
+                        <img src="{{url_for('static', filename='images/images2/%s_small.jpg' % s.video.module)}}" />
                         <br />
                         <strong>{{(100*s.watched)//s.video.duration}}%</strong>
                         </a> 
