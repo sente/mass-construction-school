@@ -1,7 +1,6 @@
 MARE
 ----------
 
-
 **This is a rebuild of Shawn's very broken MARE site.**
 
 How to get started
@@ -24,7 +23,7 @@ pip install -r requirements.txt
 sqlite3 mare/dev.db < mare/data/schema.sql
 sqlite3 mare/dev.db < mare/data/load_data.sql
 
-python manage.py runserver -t 0.0.0.0 -p 5500
+python manager.py runserver -t 0.0.0.0 -p 5500
 
 ```
 
