@@ -20,7 +20,7 @@ source bin/activate
 cd mare
 
 
-pip install --log=piplog.tx -r requirements.txt
+pip install --log=piplog.txt -r requirements.txt
 pip freeze > pip_freeze.txt
 
 sqlite3 mare/dev.db < mare/data/schema.sql
