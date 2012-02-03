@@ -259,6 +259,9 @@ def contact():
 
 @accounts.route('/print_cert', methods=['POST'])
 def print_cert():
+    if 'user_email' not in session:
+        print "error /print_cert (no user_email)"
+        abort(401)
 
     brokernum = request.form['brokernum']
     name = request.form['name']
@@ -279,6 +282,12 @@ def print_cert():
     resp = make_response(pdfdata)
 
     resp.headers['Content-Type']= 'application/pdf'
+
+    try:
+        sendmail("print_cert:%s:%s:%s" % (session['user_email'],request.form['brokernum'],request.form['name']), None)
+    except:
+        print "error /print_cert"
+
 
     return resp
 
