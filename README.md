@@ -18,7 +18,7 @@ source bin/activate
 
 cd mare
 
-pip install -r requirements.txt
+pip install -r requirements.txt --log=piplog.txt
 
 sqlite3 mare/dev.db < mare/data/schema.sql
 sqlite3 mare/dev.db < mare/data/load_data.sql
