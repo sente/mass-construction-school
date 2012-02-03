@@ -6,19 +6,22 @@ MARE
 How to get started
 ------------------
 
-
 ```bash
-cd $HOME
 
-virtualenv --python=python2.7 --no-site-packages mare_env
+myenv=mare_env
 
-cd mare_env && git clone git@github.com:sente/mare.git
+test -x /usr/bin/python2.6 && PYTHON_VERSION=python2.6
+test -x /usr/bin/python2.7 && PYTHON_VERSION=python2.7
 
+virtualenv --python=${PYTHON_VERSION} --no-site-packages $myenv
+
+cd $myenv && git clone git@github.com:sente/mare.git
 source bin/activate
-
 cd mare
 
-pip install -r requirements.txt --log=piplog.txt
+
+pip install --log=piplog.tx -r requirements.txt
+pip freeze > pip_freeze.txt
 
 sqlite3 mare/dev.db < mare/data/schema.sql
 sqlite3 mare/dev.db < mare/data/load_data.sql

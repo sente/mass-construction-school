@@ -5,7 +5,6 @@
 # `source one_click_install.sh`
 
 
-test -x /usr/bin/python2.5 && PYTHON_VERSION=python2.5
 test -x /usr/bin/python2.6 && PYTHON_VERSION=python2.6
 test -x /usr/bin/python2.7 && PYTHON_VERSION=python2.7
 
