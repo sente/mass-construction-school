@@ -260,7 +260,6 @@ def contact():
 @accounts.route('/print_cert', methods=['POST'])
 def print_cert():
 
-
     brokernum = request.form['brokernum']
     name = request.form['name']
 
@@ -271,19 +270,15 @@ def print_cert():
         --out=%s/certificate-%s.pdf
         """ % (brokernum, name, DIR, brokernum)
 
-
-
     cmd = CMD.strip().replace("\n"," ")
     out = subprocess.Popen(cmd,shell=True)
 
-#    out = subprocess.Popen('/var/www/wsgi/MARE/mare/scripts/generate_certificate.py "%s" "%s"' %(name, brokernum), shell=True)
     out.wait()
 
-    pdfdata = open('%s/certificate-%s.pdf' %(DIR,brokernum),'r').read()
+    pdfdata = open('%s/certificate-%s.pdf' %(DIR, brokernum),'r').read()
     resp = make_response(pdfdata)
 
     resp.headers['Content-Type']= 'application/pdf'
-#    response.headers['Content-Type']: application/pdf
 
     return resp
 
