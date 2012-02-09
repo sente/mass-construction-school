@@ -95,13 +95,14 @@ def full_test():
 @manager.command
 def run_stats():
     for u in db.session.query(User).all():
-        ustats = u.get_stats()
+        ustats = db.session.query(Stats).filter_by(user=u).all()
         lastwatched = filter(lambda x:  x.status,ustats)
         if lastwatched:
             lastvid = sorted(lastwatched,key=lambda x: x.video.id)[-1]
             print "%d\t%d\t%d\t%s" % (lastvid.video.id,lastvid.watched,lastvid.user.uid,lastvid.user.email)
         else:
             print "100\t100\t%d\t%s" % (u.uid,u.email)
+
 
 
 
