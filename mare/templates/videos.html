@@ -5,9 +5,10 @@
 
     {% if finished == True %}
         <center>
-            <span style="display:block;background-color:yellow; width:20%;">
-                <h3>Congratulations! Print your certificate</h3>
+            <span style="display:block;background-color:yellow; width:35%;">
+                <h3>Congratulations! Print your certificate:</h3>
             </span>
+            <span> <i>You can print the certificate at a later time as well.</i> </span>
             <form action="/print_cert" method=post>
                 <dl>
                     <dt>Realtor/Broker #<input type=text name=brokernum size=30 value="">
@@ -15,6 +16,7 @@
                 </dl>
                 <div class=actions><input type=submit value="Print Certificate"></div>
             </form>
+            <br />
         </center>
     {% endif %}
 
