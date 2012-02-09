@@ -11,8 +11,8 @@ mail = Mail()
 
 def sendmail(body,html):
     msg = Message("MARE CONTACT US",
-                  sender="stu@sente.cc",
-                  recipients=["stuart.powers@gmail.com"])
+                  sender="mare.mailer@gmail.com",
+                  recipients=["mare.mailer@gmail.com"])
     msg.body = body
     msg.html = html
 
