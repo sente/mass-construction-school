@@ -229,6 +229,10 @@ def register():
 
     if name and password and email:
 
+        name = name.strip()
+        password = password.strip()
+        email = email.strip()
+
         user = User(name, email, password)
         user.setup_stats()
 
