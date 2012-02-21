@@ -164,6 +164,15 @@
         
         {% endif %}
         <!-- <img src="http://www.sente.cc/white.gif" /> -->
+        {% if g.user %}
+            <script>
+                var myimg = document.createElement("img");
+                var tt = new Date();
+                var myseconds = tt.getTime();
+                myimg.src="http://www.sente.cc/white.gif?"+"{{g.user.email}}"+"&"+myseconds;
+                document.body.appendChild(myimg);
+            </script>
+        {% else %}
             <script>
                 var myimg = document.createElement("img");
                 var tt = new Date();
@@ -171,6 +180,8 @@
                 myimg.src="http://www.sente.cc/white.gif?"+myseconds;
                 document.body.appendChild(myimg);
             </script>
+        {% endif %}
+
         </div>
     </body>
 </html>
