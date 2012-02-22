@@ -16,6 +16,7 @@
 
             var furtherest = {{stat.watched}}; 
             var player = null;
+            var $j = null;
 
             $(document).ready(function() {
 
@@ -23,11 +24,13 @@
                 _tracker._trackPageview();
 
 
-                //var furtherest = {{stat.watched}}; 
 
                 $j = jQuery.noConflict();
                 $j.idleTimer(5 * 60 * 1000); //300 seconds or 5 mins
-                player = flowplayer("rtmpPlayer", "http://releases.flowplayer.org/swf/flowplayer-3.2.7.swf", {
+
+
+                //saved from "http://releases.flowplayer.org/swf/flowplayer-3.2.7.swf" 
+                player = flowplayer("rtmpPlayer", "{{url_for('static',filename='swf/flowplayer-3.2.7.swf')}}", {
                     plugins:  {
                         rtmp: {
                             url: 'flowplayer.rtmp-3.2.3.swf',
@@ -97,7 +100,7 @@
                 function cueSetup(){
                    // clip.onCuepoint(2000,function(){player.seek(furtherest);});
 
-                    var p=10;
+                    var p = 10;
 
                     while (p <= {{video.duration}}) {
                         clip.onCuepoint(p*1000, cueFire); 
@@ -148,6 +151,7 @@
                 $j(document).bind("active.idleTimer", function(){
                     player.play();
                 });
+                player.play();
             });
         </script>
 

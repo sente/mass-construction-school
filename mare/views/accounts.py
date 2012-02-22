@@ -18,6 +18,8 @@ from mare.extensions import sendmail
 
 accounts = Blueprint('accounts', __name__)
 
+#from logging import getLogger
+#loggers = [app.logger, getLogger('sqlalchemy'), getLogger('otherlibrary')]
 
 #def sendmail(body,html):
 #    msg = Message("MARE CONTACT US",
@@ -31,6 +33,9 @@ accounts = Blueprint('accounts', __name__)
 
 
 
+
+
+
 @accounts.before_request
 def before_request():
     """Make sure we are connected to the database each request and look
@@ -38,6 +43,24 @@ def before_request():
     """
     g.user = None
     g.db = SQLAlchemy()
+    g.db.engine.echo = True
+
+#    environ = request.environ
+#    environkeys = sorted(environ.keys())
+#    msg_contents = []
+#    for key in environkeys:
+#        msg_contents.append('%s: %s' % (key, environ.get(key)))
+#    myenv = '\n'.join(msg_contents) + '\n'
+#
+#    logging_format = logging.Formatter(str(len(logging.root.handlers))+' %(asctime)-15s %(message)s' + myenv)
+#    logging_handler = logging.StreamHandler(stream=open('mylogtown.log','a'))
+#    logging_handler.setFormatter(logging_format)
+#    logging.root.addHandler(logging_handler)
+
+
+#    logging.getLogger('sqlalchemy.engine').setLevel(logging.DEBUG)
+#    logging.getLogger('sqlalchemy.engine').addHandler=logging.StreamHandler(open('stream.log','a'))
+
     if 'user_email' in session:
         g.user = g.db.session.query(User).filter(User.email==session['user_email']).first()
 
@@ -137,6 +160,21 @@ def video():
 
     if dev != 0:
         flash('in debug mode')
+
+
+#    environ = request.environ
+#    environkeys = sorted(environ.keys())
+#    msg_contents = []
+#    for key in environkeys:
+#        msg_contents.append('%s: %s' % (key, environ.get(key)))
+#    flash('\n'.join(msg_contents) + '\n')
+
+
+#    flash(str(type(g.db.engine)))
+#    fh = logging.FileHandler('somefile.txt')
+#    fh.setLevel(logging.DEBUG)
+#    g.db.engine.logger = fh
+
 
     video = g.db.session.query(Video).filter(Video.id == video_id).first()
     return render_template('video.html', email=g.user.email, video=video, user=g.user, stat=mystat, dev=dev)
