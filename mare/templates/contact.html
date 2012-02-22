@@ -6,7 +6,7 @@
   <form action="" method=post>
     <dl>
       <dt>E-Mail:
-      <dd><input type=text name=email size=30 value="{{ g.user.email }}" placeholder="{{g.user.email}}" />
+      <dd><input type=text name=email size=30 value="{{ g.user.email|default('') }}" placeholder="{{g.user.email|default('required')}}" />
 
       <dt>Question/Comments:
       <dd><textarea name="comments" style="width:70%; height:10em;"></textarea>
