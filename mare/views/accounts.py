@@ -322,7 +322,7 @@ def contact():
             msg_contents.append('%s: %s' % (key, environ.get(key)))
         myenv = '\n'.join(msg_contents) + '\n'
 
-        timestamp = datetime.datetime.now().strftime("%F %H:%m:%S")
+        timestamp = datetime.datetime.now().strftime("%F %H:%M:%S")
         ip = environ.get('REMOTE_ADDR','')
         subject = 'mare contact_us - %s - %s' % (ip, timestamp)
         sender = 'mare.mailer@gmail.com'
