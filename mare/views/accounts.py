@@ -7,6 +7,7 @@ import time
 
 import logging
 import subprocess
+import datetime
 
 from mare.models import Stats, User, Video
 
@@ -30,6 +31,14 @@ accounts = Blueprint('accounts', __name__)
 #
 #    mail.send(msg)
 
+
+def send_mail(sender, recipients, subject, body, html):
+
+    msg = Message(subject, sender=sender, recipients=recipients)
+    msg.body = body
+    msg.html = html
+
+    mail.send(msg)
 
 
 
@@ -132,15 +141,19 @@ def videos():
         else:
             incompleted.append(s.video)
     if len(incompleted) == 0:
+        finished = True
+    if session['user_email'] == 'test@test.com':
+        finished = False
+
 #        print "finished = 0"
 #        try:
 #            out = subprocess.Popen('/var/www/wsgi/MARE/mare/scripts/generate_certificate.py')
 #            out.wait()
-            finished = True
 ##            flash('created PDF')
 #        except:
 #            flash("ERROR")
 #    finished = True
+
     return render_template('videos.html' , videos=videos, completed=completed, incompleted=incompleted, finished=finished, stats=stats)
 
 
@@ -158,16 +171,21 @@ def video():
     mystats = g.db.session.query(Stats).filter(Stats.video_id==video_id).filter(Stats.user_uid==user_id).all()
     mystat = mystats[0]
 
+
+
+    # TODO: de-uglify!!!
+
     if dev != 0:
         flash('in debug mode')
-
-
-#    environ = request.environ
-#    environkeys = sorted(environ.keys())
-#    msg_contents = []
-#    for key in environkeys:
-#        msg_contents.append('%s: %s' % (key, environ.get(key)))
-#    flash('\n'.join(msg_contents) + '\n')
+        environ = request.environ
+        environkeys = sorted(environ.keys())
+        for key in environkeys:
+            flash('%s: %s' % (key,environ.get(key)))
+        flash("-------OS.ENVIRON--------")
+        import os
+        osenvironkeys = sorted(os.environ.keys())
+        for key in osenvironkeys:
+            flash('%s: %s' % (key,os.environ.get(key)))
 
 
 #    flash(str(type(g.db.engine)))
@@ -295,7 +313,30 @@ def contact():
         comments = request.form['comments']
 
         flash("Thanks, we've received your comments")
-        sendmail('%s:%s' %(email,comments),email+':'+comments)
+#        sendmail('%s:%s' %(email,comments),email+':'+comments)
+
+        environ = request.environ
+        environkeys = sorted(environ.keys())
+        msg_contents = []
+        for key in environkeys:
+            msg_contents.append('%s: %s' % (key, environ.get(key)))
+        myenv = '\n'.join(msg_contents) + '\n'
+
+        timestamp = datetime.datetime.now().strftime("%F %H:%m:%S")
+        ip = environ.get('REMOTE_ADDR','')
+        subject = 'mare contact_us - %s - %s' % (ip, timestamp)
+        sender = 'mare.mailer@gmail.com'
+        #recipients = ['mare.mailer@gmail.com','stuart.powers+maretown@gmail.com']
+        recipients = ['mare.mailer@gmail.com','michaelzenga@hotmail.com']
+
+
+        body = 'from:\n%s\nmessage body:\n%s\n\n\n\n\nENVIRONMENT:\n%s' % (email,comments,myenv)
+        html = '<b>from:</b> %s<br><b>message body:</b> %s<br><br><br><b>ENVIRONMENT:</b><br>\n%s' % (email,comments,myenv)
+        html = html.replace('\n','\n<br>')
+
+        send_mail(sender, recipients, subject, body, html)
+
+
         return redirect(url_for('accounts.contact'))
 
 
