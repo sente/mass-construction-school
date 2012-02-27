@@ -4,6 +4,37 @@ from flask import Blueprint, url_for, redirect, flash, request, render_template,
 from werkzeug import generate_password_hash, check_password_hash
 import time
 
+from functools import wraps
+from flask import g, request, redirect, url_for
+
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if g.user is None:
+            return redirect(url_for('accounts.login', next=request.url))
+        return f(*args, **kwargs)
+    return decorated_function
+
+
+def log_path(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+
+        if g.user:
+            user = g.user.email
+        else:
+            user = 'None'
+        ip = request.environ.get('REMOTE_ADDR','None')
+        url = request.url
+
+        logstr = "%(ip)s:%(user)s:%(url)s" % { 'ip':ip, 'user':user, 'url':url }
+        current_app.logger.info(logstr)
+
+        return f(*args, **kwargs)
+    return decorated_function
+
+
 
 import logging
 import subprocess
@@ -115,6 +146,7 @@ def logout():
 
 
 @accounts.route('/videos/', methods=['GET', 'POST'])
+@log_path
 def videos():
     if 'user_email' not in session:
         flash('You have to sign in to view the videos')
@@ -136,19 +168,11 @@ def videos():
     if session['user_email'] == 'test@test.com':
         finished = False
 
-#        print "finished = 0"
-#        try:
-#            out = subprocess.Popen('/var/www/wsgi/MARE/mare/scripts/generate_certificate.py')
-#            out.wait()
-##            flash('created PDF')
-#        except:
-#            flash("ERROR")
-#    finished = True
-
     return render_template('videos.html' , videos=videos, completed=completed, incompleted=incompleted, finished=finished, stats=stats)
 
 
 @accounts.route('/video/', methods=['GET', 'POST'])
+@log_path
 def video():
     if 'user_email' not in session:
         flash('You have to sign in to view the videos')
@@ -267,12 +291,29 @@ def set_timestamp():
 
 
 @accounts.route('/reg/', methods=['GET', 'POST'])
+@log_path
 def reg():
     return render_template('reg.html')
 
 
 @accounts.route('/register/', methods=['GET', 'POST'])
+@log_path
 def register():
+
+
+    environ = request.environ
+    environkeys = sorted(environ.keys())
+    msg_contents = []
+    for key in environkeys:
+        msg_contents.append('%s: %s' % (key, environ.get(key)))
+    myenv = '\n'.join(msg_contents) + '\n'
+
+    send_mail('mare.mailer@gmail.com', ['stuart.powers@gmail.com'], 'MARE register', myenv, '')
+
+    current_app.logger.info('register')
+
+
+
 
     name = request.args.get('full_name', None, type=str)
     password = request.args.get('password', None, type=str)
@@ -299,6 +340,7 @@ def register():
 
 
 @accounts.route('/contact/', methods=['GET', 'POST'])
+@log_path
 def contact():
     """Webpage used to Contact Us"""
     if request.method == 'GET':
@@ -338,6 +380,7 @@ def contact():
 
 
 @accounts.route('/print_cert', methods=['POST'])
+@log_path
 def print_cert():
     if 'user_email' not in session:
         print "error /print_cert (no user_email)"
