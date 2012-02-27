@@ -54,6 +54,22 @@ def setup_mail_handler():
 
     return mail_handler
 
+def CreateLogger(name, logdir='', level=None):
+    import logging
+    import logging.handlers
+    l = logging.getLogger(name)
+    l.setLevel(logging.DEBUG)
+    if level != None:
+        l.setLevel(level)
+
+    epochtime = int(time.time())
+    log_filename = os.path.join(logdir, "%s.%d.log" % (name, epochtime))
+    handler = logging.handlers.RotatingFileHandler(log_filename, maxBytes=10240000, backupCount=10)
+    formatter = logging.Formatter("%(asctime)s|%(thread)d|%(levelno)s|%(module)s:%(funcName)s:%(lineno)d|%(message)s")
+    handler.setFormatter(formatter)
+    l.addHandler(handler)
+    return l
+
 
 def create_app(name):
 
@@ -70,6 +86,6 @@ def create_app(name):
     admin_blueprint = admin.create_admin_blueprint(datastore)
     app.register_blueprint(admin_blueprint, url_prefix='/secret_admin')
 
-    app.logger.addHandler(setup_mail_handler())
+    app.logger.addHandler(CreateLogger('full', app.config['LOG_DIR']))
 
     return app

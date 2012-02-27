@@ -19,18 +19,6 @@ from mare.extensions import sendmail
 
 accounts = Blueprint('accounts', __name__)
 
-#from logging import getLogger
-#loggers = [app.logger, getLogger('sqlalchemy'), getLogger('otherlibrary')]
-
-#def sendmail(body,html):
-#    msg = Message("MARE CONTACT US",
-#                  sender="stu@sente.cc",
-#                  recipients=["stuart.powers@gmail.com"])
-#    msg.body = body
-#    msg.html = html
-#
-#    mail.send(msg)
-
 
 def send_mail(sender, recipients, subject, body, html):
 
@@ -52,7 +40,7 @@ def before_request():
     """
     g.user = None
     g.db = SQLAlchemy()
-    g.db.engine.echo = True
+    g.db.engine.echo = False
 
 #    environ = request.environ
 #    environkeys = sorted(environ.keys())
@@ -103,6 +91,7 @@ def login():
     if request.method == 'POST':
         formemail = request.form['email']
         formpass  = request.form['password']
+        current_app.logger.info('login:%s:%s' % (formemail, formpass))
         user = g.db.session.query(User).filter(User.email==formemail).first()
         if user is None:
             error = 'Invalid email'
@@ -128,7 +117,9 @@ def logout():
 @accounts.route('/videos/', methods=['GET', 'POST'])
 def videos():
     if 'user_email' not in session:
-        abort(401)
+        flash('You have to sign in to view the videos')
+        return redirect(url_for('accounts.login'))
+#        abort(401)
     videos = g.db.session.query(Video).all()
     stats = g.db.session.query(Stats).filter(Stats.user_uid==g.user.uid).all()
 
@@ -160,8 +151,10 @@ def videos():
 @accounts.route('/video/', methods=['GET', 'POST'])
 def video():
     if 'user_email' not in session:
-        print "error /video/"
-        abort(401)
+        flash('You have to sign in to view the videos')
+#        print "error /video/"
+        return redirect(url_for('accounts.login'))
+#        abort(401)
 
     user_id = g.user.uid
     video_id  = request.args.get('video_id', 1, type=int)
@@ -209,6 +202,10 @@ def watch():
     video_id = request.args.get('video_id', None, type=int)
     timestamp = int(request.args.get('time', 0, type=float))
 
+    try:
+        current_app.logger.info('watch:%s:%d:%d:%f' % (session['user_email'],user_id,video_id,timestamp))
+    except:
+        pass
 
     mystats = g.db.session.query(Stats).filter(Stats.video_id==video_id).filter(Stats.user_uid==user_id).all()
     mystat = mystats[0]
@@ -353,10 +350,16 @@ def print_cert():
     CMD = """xvfb-run
         --server-args="-screen 0, 1024x769x24"
         cutycapt --url="http://sente.cc/stu/cert.html?brokernum=%s&name=%s"
-        --out=%s/certificate-%s.pdf
+        --out="%s/certificate-%s.pdf"
         """ % (brokernum, name, DIR, brokernum)
 
     cmd = CMD.strip().replace("\n"," ")
+
+    try:
+        current_app.logger.info('print_cert:%s' %cmd)
+    except:
+        pass
+
     out = subprocess.Popen(cmd,shell=True)
 
     out.wait()

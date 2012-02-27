@@ -2,7 +2,6 @@
 
 import os
 
-
 this_directory = os.path.abspath(os.path.dirname(__file__))
 
 class Config(object):
@@ -11,6 +10,8 @@ class Config(object):
 
     SECRET_KEY = 'epoch-1323202600-town'
     #SQLAlchemy Settings
+
+    LOG_DIR = '%s/logs' % this_directory
 
     SQLALCHEMY_DATABASE_URI = 'sqlite:///%s/dev.db' % this_directory
     SQLALCHEMY_RECORD_QUERIES = True
