@@ -512,47 +512,47 @@ def email_password():
 
 
 
-@accounts.route('/reset_password/', methods=['GET', 'POST'])
-def reset_password():
-
-    if request.method == 'GET':
-        return render_template('reset_password.html')
-
-    if request.method == 'POST':
-
-        formtype = request.form['type']
-        formemail = request.form['email']
-
-        if formtype == 'change':
-
-            oldpass = request.form['pass']
-            newpass = request.form['newpass']
-            newpass2 = request.form['newpass2']
-
-            user = g.db.session.query(User).filter(User.email==formemail).first()
-            if user.password != oldpass:
-                flash("your password is not right")
-                return render_template("reset_password.html")
-
-            if newpass != newpass2:
-                flash("your passwords do not match")
-                return render_template("reset_password.html")
-
-            try:
-                user.password = newpass
-                g.db.session.commit()
-                return "PASSWORD CHANGED"
-            except:
-                return "ERROR"
-
-        elif formtype == 'email':
-
-            user = g.db.session.query(User).filter_by(email=formemail).first()
-            if user:
-                user.send_mail("your lost password", "Your password is %s" %(user.password))
-                return "your password has been emailed"
-            else:
-                return "ERROR"
-        else:
-            return "ERROR bad form types"
-
+#@accounts.route('/reset_password/', methods=['GET', 'POST'])
+#def reset_password():
+#
+#    if request.method == 'GET':
+#        return render_template('reset_password.html')
+#
+#    if request.method == 'POST':
+#
+#        formtype = request.form['type']
+#        formemail = request.form['email']
+#
+#        if formtype == 'change':
+#
+#            oldpass = request.form['pass']
+#            newpass = request.form['newpass']
+#            newpass2 = request.form['newpass2']
+#
+#            user = g.db.session.query(User).filter(User.email==formemail).first()
+#            if user.password != oldpass:
+#                flash("your password is not right")
+#                return render_template("reset_password.html")
+#
+#            if newpass != newpass2:
+#                flash("your passwords do not match")
+#                return render_template("reset_password.html")
+#
+#            try:
+#                user.password = newpass
+#                g.db.session.commit()
+#                return "PASSWORD CHANGED"
+#            except:
+#                return "ERROR"
+#
+#        elif formtype == 'email':
+#
+#            user = g.db.session.query(User).filter_by(email=formemail).first()
+#            if user:
+#                user.send_mail("your lost password", "Your password is %s" %(user.password))
+#                return "your password has been emailed"
+#            else:
+#                return "ERROR"
+#        else:
+#            return "ERROR bad form types"
+#
