@@ -392,9 +392,14 @@ def print_cert():
     DIR='/var/www/wsgi/MARE/mare/static/certificates'
     CMD = """xvfb-run
         --server-args="-screen 0, 1024x769x24"
-        cutycapt --url="http://sente.cc/stu/cert.html?brokernum=%s&name=%s"
+        cutycapt --url="http://ma.sente.cc/~stu/certificate/cert.html?licensenum=%s&name=%s"
         --out="%s/certificate-%s.pdf"
         """ % (brokernum, name, DIR, brokernum)
+#    CMD = """xvfb-run
+#        --server-args="-screen 0, 1024x769x24"
+#        cutycapt --url="http://sente.cc/stu/cert.html?brokernum=%s&name=%s"
+#        --out="%s/certificate-%s.pdf"
+#        """ % (brokernum, name, DIR, brokernum)
 
     cmd = CMD.strip().replace("\n"," ")
 
