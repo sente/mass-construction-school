@@ -1,7 +1,7 @@
-    .ui-progressbar {
-        height:1em;
-        color:red;
-        }
+.ui-progressbar {
+    height:1em;
+    color:red;
+}
 
 
 /* playlist style */
@@ -68,3 +68,7 @@
 	margin-left:5px;
 }
 
+#troubleshooting p {
+    margin-right:5px;
+    margin-left:5px;
+}
