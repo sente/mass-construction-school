@@ -395,11 +395,6 @@ def print_cert():
         cutycapt --url="http://ma.sente.cc/~stu/certificate/cert.html?licensenum=%s&name=%s"
         --out="%s/certificate-%s.pdf"
         """ % (brokernum, name, DIR, brokernum)
-#    CMD = """xvfb-run
-#        --server-args="-screen 0, 1024x769x24"
-#        cutycapt --url="http://sente.cc/stu/cert.html?brokernum=%s&name=%s"
-#        --out="%s/certificate-%s.pdf"
-#        """ % (brokernum, name, DIR, brokernum)
 
     cmd = CMD.strip().replace("\n"," ")
 
@@ -424,28 +419,6 @@ def print_cert():
 
 
     return resp
-
-@accounts.route('/certificate/', methods=['GET', 'POST'])
-def certificate():
-    """Webpage used to Contact Us"""
-    if request.method == 'GET':
-
-        return render_template('certificate.html')
-
-
-    if request.method == 'POST':
-        brokernum = request.form['brokernum']
-        name = request.form['name']
-
-        out = subprocess.Popen('/var/www/wsgi/MARE/mare/scripts/generate_certificate.py "%s" "%s"' %(name, brokernum), shell=True)
-        out.wait()
-        finished = True
-
-        flash("Thanks, your certificate is here, %s" % brokernum)
-        #sendmail('%s:%s' %(email,comments),comments)
-        return redirect(url_for('accounts.contact'))
-
-
 
 
 
