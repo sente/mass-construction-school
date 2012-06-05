@@ -34,15 +34,12 @@ def log_path(f):
         return f(*args, **kwargs)
     return decorated_function
 
-
-
 import logging
 import subprocess
 import datetime
 
 from mare.models import Stats, User, Video
 
-#from mare.extensions import db
 from mare.extensions import mail
 from mare.extensions import Message
 from mare.extensions import SQLAlchemy
@@ -60,10 +57,6 @@ def send_mail(sender, recipients, subject, body, html):
     mail.send(msg)
 
 
-
-
-
-
 @accounts.before_request
 def before_request():
     """Make sure we are connected to the database each request and look
@@ -73,24 +66,9 @@ def before_request():
     g.db = SQLAlchemy()
     g.db.engine.echo = False
 
-#    environ = request.environ
-#    environkeys = sorted(environ.keys())
-#    msg_contents = []
-#    for key in environkeys:
-#        msg_contents.append('%s: %s' % (key, environ.get(key)))
-#    myenv = '\n'.join(msg_contents) + '\n'
-#
-#    logging_format = logging.Formatter(str(len(logging.root.handlers))+' %(asctime)-15s %(message)s' + myenv)
-#    logging_handler = logging.StreamHandler(stream=open('mylogtown.log','a'))
-#    logging_handler.setFormatter(logging_format)
-#    logging.root.addHandler(logging_handler)
-
-
-#    logging.getLogger('sqlalchemy.engine').setLevel(logging.DEBUG)
-#    logging.getLogger('sqlalchemy.engine').addHandler=logging.StreamHandler(open('stream.log','a'))
-
     if 'user_email' in session:
         g.user = g.db.session.query(User).filter(User.email==session['user_email']).first()
+
 
 
 @accounts.teardown_request
@@ -101,23 +79,22 @@ def teardown_request(exception):
         g.db.session.close()
 
 
+
 @accounts.route('/', methods=['GET', 'POST'])
 def index():
     return render_template('ma-index.html')
 
 
+
 @accounts.route('/login/', methods=['GET', 'POST'])
 def login():
-    """Logs the user in."""
+    """
+    Logs the user in.
+    """
     if g.user:
         flash("You're already logged in")
         return redirect(url_for('accounts.videos'))
     error = None
-
-
-#    foo = render_template('ma-index.html')
-#    sendmail(str(request.headers),foo)
-
 
     if request.method == 'POST':
         formemail = request.form['email']
@@ -139,7 +116,9 @@ def login():
 
 @accounts.route('/logout')
 def logout():
-    """Logs the user out."""
+    """
+    Logs the user out.
+    """
     flash('You were logged out')
     session.pop('user_email', None)
     return redirect(url_for('accounts.login'))
@@ -148,10 +127,14 @@ def logout():
 @accounts.route('/videos/', methods=['GET', 'POST'])
 @log_path
 def videos():
+    """
+    Listing page of all the videos and user progress
+    """
+
     if 'user_email' not in session:
         flash('You have to sign in to view the videos')
         return redirect(url_for('accounts.login'))
-#        abort(401)
+
     videos = g.db.session.query(Video).all()
     stats = g.db.session.query(Stats).filter(Stats.user_uid==g.user.uid).all()
 
@@ -174,11 +157,13 @@ def videos():
 @accounts.route('/video/', methods=['GET', 'POST'])
 @log_path
 def video():
+    """
+    watch an individual video
+    """
+
     if 'user_email' not in session:
         flash('You have to sign in to view the videos')
-#        print "error /video/"
         return redirect(url_for('accounts.login'))
-#        abort(401)
 
     user_id = g.user.uid
     video_id  = request.args.get('video_id', 1, type=int)
@@ -187,8 +172,6 @@ def video():
 
     mystats = g.db.session.query(Stats).filter(Stats.video_id==video_id).filter(Stats.user_uid==user_id).all()
     mystat = mystats[0]
-
-
 
     # TODO: de-uglify!!!
 
@@ -204,19 +187,16 @@ def video():
         for key in osenvironkeys:
             flash('%s: %s' % (key,os.environ.get(key)))
 
-
-#    flash(str(type(g.db.engine)))
-#    fh = logging.FileHandler('somefile.txt')
-#    fh.setLevel(logging.DEBUG)
-#    g.db.engine.logger = fh
-
-
     video = g.db.session.query(Video).filter(Video.id == video_id).first()
     return render_template('video.html', email=g.user.email, video=video, user=g.user, stat=mystat, dev=dev)
 
 
 @accounts.route('/watch/', methods=['GET', 'POST'])
 def watch():
+    """
+    called by javascript, this function updates the user's
+    progress for the given video
+    """
 
     if 'user_email' not in session:
         print "error /watch/"
@@ -246,6 +226,10 @@ def watch():
 
 @accounts.route('/finish/', methods=['GET', 'POST'])
 def finish():
+    """
+    called by javascript when the user has finished watching a video
+    """
+
     if 'user_email' not in session:
         print "error /finish/"
         abort(401)
@@ -257,21 +241,24 @@ def finish():
     mystat.watched = mystat.video.duration
     mystat.status = video_id
 
-
     nextstats = g.db.session.query(Stats).filter(Stats.video_id==video_id+1).filter(Stats.user_uid==user_id).all()
+
     try:
         nextstat = nextstats[0]
         if nextstat:
             nextstat.status=nextstat.video_id
     except:
         pass
-#        raise('rpoblem')
+
     g.db.session.commit()
 
     return '%d finish' % (mystats[0].watched)
 
 @accounts.route('/set/', methods=['GET', 'POST'])
 def set_timestamp():
+    """
+    this is a 'hidden' method that can be used to set a given user's video progress
+    """
     if 'user_email' not in session:
         print "error /set/"
         abort(401)
@@ -289,17 +276,18 @@ def set_timestamp():
 
 
 
-
 @accounts.route('/reg/', methods=['GET', 'POST'])
 @log_path
 def reg():
+    """ renders the reg.html template """
     return render_template('reg.html')
+
 
 
 @accounts.route('/register/', methods=['GET', 'POST'])
 @log_path
 def register():
-
+    """ register a new account """
 
     environ = request.environ
     environkeys = sorted(environ.keys())
@@ -312,13 +300,9 @@ def register():
 
     current_app.logger.info('register')
 
-
-
-
     name = request.args.get('full_name', None, type=str)
     password = request.args.get('password', None, type=str)
     email = request.args.get('email', None, type=str)
-    #brokernum = request.args.get('brokerrealtor', None, type=str)
 
 
     if name and password and email:
@@ -331,8 +315,8 @@ def register():
         user.setup_stats()
 
         session['user_email'] = user.email
-
         return redirect(url_for('accounts.login', town='module1'))
+
     else:
         return redirect(url_for('accounts.login'))
 
@@ -342,9 +326,10 @@ def register():
 @accounts.route('/contact/', methods=['GET', 'POST'])
 @log_path
 def contact():
-    """Webpage used to Contact Us"""
+    """
+    Webpage used to Contact Us
+    """
     if request.method == 'GET':
-
         return render_template('contact.html')
 
     if request.method == 'POST':
@@ -352,7 +337,6 @@ def contact():
         comments = request.form['comments']
 
         flash("Thanks, we've received your comments")
-#        sendmail('%s:%s' %(email,comments),email+':'+comments)
 
         environ = request.environ
         environkeys = sorted(environ.keys())
@@ -382,6 +366,10 @@ def contact():
 @accounts.route('/print_cert', methods=['POST'])
 @log_path
 def print_cert():
+    """
+    calls an external command to generate the certificate and then returns it
+    """
+
     if 'user_email' not in session:
         print "error /print_cert (no user_email)"
         abort(401)
@@ -465,7 +453,6 @@ def change_password():
 def email_password():
 
     if request.method == 'GET':
-
         return render_template('email_password.html')
 
     if request.method == 'POST':
@@ -487,50 +474,3 @@ def email_password():
         flash("There was an error when trying to send the password" % formemail)
         return redirect(url_for('accounts.email_password'))
 
-
-
-
-#@accounts.route('/reset_password/', methods=['GET', 'POST'])
-#def reset_password():
-#
-#    if request.method == 'GET':
-#        return render_template('reset_password.html')
-#
-#    if request.method == 'POST':
-#
-#        formtype = request.form['type']
-#        formemail = request.form['email']
-#
-#        if formtype == 'change':
-#
-#            oldpass = request.form['pass']
-#            newpass = request.form['newpass']
-#            newpass2 = request.form['newpass2']
-#
-#            user = g.db.session.query(User).filter(User.email==formemail).first()
-#            if user.password != oldpass:
-#                flash("your password is not right")
-#                return render_template("reset_password.html")
-#
-#            if newpass != newpass2:
-#                flash("your passwords do not match")
-#                return render_template("reset_password.html")
-#
-#            try:
-#                user.password = newpass
-#                g.db.session.commit()
-#                return "PASSWORD CHANGED"
-#            except:
-#                return "ERROR"
-#
-#        elif formtype == 'email':
-#
-#            user = g.db.session.query(User).filter_by(email=formemail).first()
-#            if user:
-#                user.send_mail("your lost password", "Your password is %s" %(user.password))
-#                return "your password has been emailed"
-#            else:
-#                return "ERROR"
-#        else:
-#            return "ERROR bad form types"
-#
