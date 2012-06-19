@@ -1,8 +1,8 @@
 import datetime
 from mare.extensions import db, mail
 
-from flaskext.sqlalchemy import BaseQuery
-from flaskext.mail import Message
+from flask.ext.sqlalchemy import BaseQuery
+from flask.ext.mail import Message
 from werkzeug import generate_password_hash, check_password_hash
 
 from mare.models.stats import Stats

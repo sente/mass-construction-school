@@ -1,6 +1,6 @@
 
 from flask import current_app
-from flaskext.script import Manager, prompt_bool
+from flask.ext.script import Manager, prompt_bool
 from mare import create_app
 
 from mare.extensions import SQLAlchemy

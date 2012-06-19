@@ -1,8 +1,8 @@
 # -*- encoding:utf-8 -*-
 
-from flaskext.sqlalchemy import SQLAlchemy
-from flaskext.mail import Mail
-from flaskext.mail import Message
+from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.mail import Mail
+from flask.ext.mail import Message
 
 db = SQLAlchemy()
 mail = Mail()
