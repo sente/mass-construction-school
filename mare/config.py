@@ -8,7 +8,7 @@ class Config(object):
 
     DEBUG = True #for devel
 
-    SECRET_KEY = 'epoch-1323202600-town'
+    SECRET_KEY = 'epoch-1323202600-town-booyah'
     #SQLAlchemy Settings
 
     LOG_DIR = '%s/logs' % this_directory
@@ -31,10 +31,10 @@ class Config(object):
     MAIL_USE_TLS = True
     MAIL_USE_SSL = False
     MAIL_DEBUG = DEBUG
-    MAIL_USERNAME = 'mare.mailer'
-    DEFAULT_MAIL_SENDER = 'mare.mailer@gmail.com'
+    MAIL_USERNAME = 'massconstructionschool'
+    DEFAULT_MAIL_SENDER = 'massconstructionschool@gmail.com'
 
-    if os.environ.has_key('MAREPASS'):
-        MAIL_PASSWORD = os.environ['MAREPASS']
-    MAIL_PASSWORD = 'marepasstown'
+    if os.environ.has_key('CONSPASS'):
+        MAIL_PASSWORD = os.environ['CONSPASS']
+    MAIL_PASSWORD = 'masstown9'
 

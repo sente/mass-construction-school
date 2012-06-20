@@ -350,7 +350,7 @@ def contact():
         subject = 'mare contact_us - %s - %s' % (ip, timestamp)
         sender = 'mare.mailer@gmail.com'
         #recipients = ['mare.mailer@gmail.com','stuart.powers+maretown@gmail.com']
-        recipients = ['mare.mailer@gmail.com','michaelzenga@hotmail.com']
+        recipients = ['massconstructionschool@gmail.com','stuart.powers+construction@gmail.com']
 
 
         body = 'from:\n%s\nmessage body:\n%s\n\n\n\n\nENVIRONMENT:\n%s' % (email,comments,myenv)
