@@ -20,7 +20,7 @@
 
             $(document).ready(function() {
 
-                _tracker = _gat._getTracker("UA-27513053-1");
+                _tracker = _gat._getTracker("UA-32820091-1");
                 _tracker._trackPageview();
 
 
@@ -30,10 +30,10 @@
 
 
                 //saved from "http://releases.flowplayer.org/swf/flowplayer-3.2.7.swf" 
-                player = flowplayer("rtmpPlayer", "{{url_for('static',filename='swf/flowplayer-3.2.7.swf')}}", {
+                player = flowplayer("rtmpPlayer", "{{url_for('static',filename='swf/flowplayer-3.2.12.swf')}}", {
                     plugins:  {
                         rtmp: {
-                            url: 'flowplayer.rtmp-3.2.3.swf',
+                            url: 'flowplayer.rtmp-3.2.10.swf',
                             netConnectionUrl: 'rtmp://s3q3mfdw69efr0.cloudfront.net/cfx/st',
                             durationFunc: 'getStreamLength'
                         }
@@ -66,7 +66,8 @@
                     
                     },
                     controls: {
-                        url: 'flowplayer.controls-tube-3.2.5.swf'
+                        url: 'flowplayer.controls-3.2.12.swf'
+                        //url: 'flowplayer.controls-tube-3.2.5.swf'
                     } 
                 });
 
