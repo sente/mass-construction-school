@@ -4,8 +4,8 @@
 {% block body %}
 
 <center>
-    <a href="{{video.module}}" style="display:block;width:704px;height:400px;" id="rtmpPlayer">
-        <img src="{{url_for('static', filename='images/%s_large.jpg' % video.module)}}" style="width:704px; height:400px;" alt="{{video.module}}" />
+    <a href="{{video.module}}" style="display:block;width:500px;height:376px;" id="rtmpPlayer">
+        <img src="{{url_for('static', filename='images/%s_large.jpg' % video.module)}}" style="width:500px; height:376px;" alt="{{video.module}}" />
     </a>
     <br>
   <strong><a href="{{ url_for('accounts.videos') }}">Back to Main Video Menu</a></strong>
@@ -34,7 +34,7 @@
                     plugins:  {
                         rtmp: {
                             url: 'flowplayer.rtmp-3.2.3.swf',
-                            netConnectionUrl: 'rtmp://s25yxt9d51qx7q.cloudfront.net/cfx/st',
+                            netConnectionUrl: 'rtmp://s3q3mfdw69efr0.cloudfront.net/cfx/st',
                             durationFunc: 'getStreamLength'
                         }
                     },
