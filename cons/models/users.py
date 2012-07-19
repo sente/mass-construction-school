@@ -1,12 +1,12 @@
 import datetime
-from mare.extensions import db, mail
+from cons.extensions import db, mail
 
 from flask.ext.sqlalchemy import BaseQuery
 from flask.ext.mail import Message
 from werkzeug import generate_password_hash, check_password_hash
 
-from mare.models.stats import Stats
-from mare.models.videos import Video
+from cons.models.stats import Stats
+from cons.models.videos import Video
 
 class User(db.Model):
     __tablename__ = 'user'
@@ -30,7 +30,7 @@ class User(db.Model):
 
 
     def send_mail(self, subject, message):
-        msg = Message(subject, recipients = [self.email], body=message, bcc=['mare.mailer@gmail.com'])
+        msg = Message(subject, recipients = [self.email], body=message, bcc=['cons.mailer@gmail.com'])
         mail.send(msg)
 
 

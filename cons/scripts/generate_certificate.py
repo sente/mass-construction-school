@@ -7,7 +7,7 @@ import sys
 
 #out = subprocess.Popen('xvfb-run --server-args="-screen 0, 1024x769x24" cutycapt --url="http://sente.cc/stu/cert.html?brokernum=%d&name=%s" --out=certificate-%d.pdf' % (g.user.brokernum, g.user.name, g.user.brokernum),shell=True)
 
-DIR = '/var/www/wsgi/MARE/mare/static/certificates'
+DIR = '/var/www/wsgi/MARE/cons/static/certificates'
 
 brokernum = 12345
 name = 'Stuart Powers'

@@ -38,12 +38,12 @@ import logging
 import subprocess
 import datetime
 
-from mare.models import Stats, User, Video
+from cons.models import Stats, User, Video
 
-from mare.extensions import mail
-from mare.extensions import Message
-from mare.extensions import SQLAlchemy
-from mare.extensions import sendmail
+from cons.extensions import mail
+from cons.extensions import Message
+from cons.extensions import SQLAlchemy
+from cons.extensions import sendmail
 
 accounts = Blueprint('accounts', __name__)
 
@@ -296,7 +296,7 @@ def register():
         msg_contents.append('%s: %s' % (key, environ.get(key)))
     myenv = '\n'.join(msg_contents) + '\n'
 
-    send_mail('mare.mailer@gmail.com', ['stuart.powers@gmail.com'], 'MARE register', myenv, '')
+    send_mail('cons.mailer@gmail.com', ['stuart.powers@gmail.com'], 'MARE register', myenv, '')
 
     current_app.logger.info('register')
 
@@ -347,9 +347,9 @@ def contact():
 
         timestamp = datetime.datetime.now().strftime("%F %H:%M:%S")
         ip = environ.get('REMOTE_ADDR','')
-        subject = 'mare contact_us - %s - %s' % (ip, timestamp)
-        sender = 'mare.mailer@gmail.com'
-        #recipients = ['mare.mailer@gmail.com','stuart.powers+maretown@gmail.com']
+        subject = 'cons contact_us - %s - %s' % (ip, timestamp)
+        sender = 'cons.mailer@gmail.com'
+        #recipients = ['cons.mailer@gmail.com','stuart.powers+constown@gmail.com']
         recipients = ['massconstructionschool@gmail.com','stuart.powers+construction@gmail.com']
 
 
@@ -377,7 +377,7 @@ def print_cert():
     brokernum = request.form['brokernum']
     name = request.form['name']
 
-    DIR='/var/www/wsgi/MARE/mare/static/certificates'
+    DIR='/var/www/wsgi/MARE/cons/static/certificates'
     CMD = """xvfb-run
         --server-args="-screen 0, 1024x769x24"
         cutycapt --url="http://ma.sente.cc/~stu/certificate/cert.html?licensenum=%s&name=%s"

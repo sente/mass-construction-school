@@ -20,12 +20,12 @@ import time
 here = os.path.abspath(os.path.dirname(__file__))
 sys.path.insert(0,here)
 
-from mare.config import Config
-from mare.extensions import SQLAlchemy
-from mare.extensions import mail
-from mare.extensions import sendmail
-from mare.views.accounts import accounts
-from mare.models import User, Video, Stats
+from cons.config import Config
+from cons.extensions import SQLAlchemy
+from cons.extensions import mail
+from cons.extensions import sendmail
+from cons.views.accounts import accounts
+from cons.models import User, Video, Stats
 
 
 
@@ -36,7 +36,7 @@ def setup_mail_handler():
     from logging.handlers import SMTPHandler
 
     ADMINS = ['stuart.powers@gmail.com']
-    mail_handler = SMTPHandler('smtp.gmail.com', 'mare.mailer@gmail.com', ADMINS, 'New Video Uploaded',('mare.mailer','marepasstown',))
+    mail_handler = SMTPHandler('smtp.gmail.com', 'cons.mailer@gmail.com', ADMINS, 'New Video Uploaded',('cons.mailer','conspasstown',))
     mail_handler.setLevel(logging.DEBUG)
 
     mail_handler.setFormatter(Formatter('''

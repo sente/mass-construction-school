@@ -1,12 +1,12 @@
 
 from flask import current_app
 from flask.ext.script import Manager, prompt_bool
-from mare import create_app
+from cons import create_app
 
-from mare.extensions import SQLAlchemy
-from mare.models import User, Video, Stats
+from cons.extensions import SQLAlchemy
+from cons.models import User, Video, Stats
 
-app = create_app('mare')
+app = create_app('cons')
 manager = Manager(app)
 
 db = SQLAlchemy()
@@ -60,7 +60,7 @@ def drop_db():
 
 @manager.command
 def load_videos():
-    with open('mare/data/videos.dat', 'r') as f:
+    with open('cons/data/videos.dat', 'r') as f:
         for line in f.readlines():
             tup = line.strip().split("\t")
             module = tup[0]

@@ -1,4 +1,4 @@
-from mare.extensions import db
+from cons.extensions import db
 
 class Video(db.Model):
 
