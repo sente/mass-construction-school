@@ -4,12 +4,41 @@
 {% block body %}
 
 <center>
-    <a href="{{video.module}}" style="display:block;width:500px;height:376px;" id="rtmpPlayer">
-        <img src="{{url_for('static', filename='images/%s_large.jpg' % video.module)}}" style="width:500px; height:376px;" alt="{{video.module}}" />
+    <a href="{{video.module}}" style="display:block;width:800px;height:600px;" id="rtmpPlayer">
+        <img src="{{url_for('static', filename='images/%s_large.jpg' % video.module)}}" style="width:500px; height:600px;" alt="{{video.module}}" />
     </a>
     <br>
   <strong><a href="{{ url_for('accounts.videos') }}">Back to Main Video Menu</a></strong>
 </center>
+<br>
+<hr color=green>
+<center>
+    {% if video.id == 1 %}
+    <iframe name='proprofs' id='proprofs' height='606' width='770' frameborder=0 marginwidth=0 marginheight=0 src='http://www.proprofs.com/quiz-school/widget/v3/?id=383052&bgcolor=ffffff&fcolor=000000&tcolor=000000&w=750&h=400&ff=1&fs=large&pplink=0&socialmedia=0&embedlink=0&showpage=1&btncolor=000000'></iframe>
+    {% endif %}
+
+    {% if video.id == 2 %}
+    <iframe name='proprofs' id='proprofs' height='606' width='770' frameborder=0 marginwidth=0 marginheight=0 src='http://www.proprofs.com/quiz-school/widget/v3/?id=383870&bgcolor=ffffff&fcolor=000000&tcolor=000000&w=750&h=400&ff=1&fs=large&pplink=0&socialmedia=0&embedlink=0&showpage=1&btncolor=000000'></iframe>
+    {% endif %}
+
+    {% if video.id == 3 %}
+    <iframe name='proprofs' id='proprofs' height='606' width='770' frameborder=0 marginwidth=0 marginheight=0 src='http://www.proprofs.com/quiz-school/widget/v3/?id=383863&bgcolor=ffffff&fcolor=000000&tcolor=000000&w=750&h=400&ff=1&fs=large&pplink=0&socialmedia=0&embedlink=0&showpage=1&btncolor=000000'></iframe>
+    {% endif %}
+
+    {% if video.id == 4 %}
+    <iframe name='proprofs' id='proprofs' height='606' width='770' frameborder=0 marginwidth=0 marginheight=0 src='http://www.proprofs.com/quiz-school/widget/v3/?id=383883&bgcolor=ffffff&fcolor=000000&tcolor=000000&w=750&h=400&ff=1&fs=large&pplink=0&socialmedia=0&embedlink=0&showpage=1&btncolor=000000'></iframe>
+    {% endif %}
+
+    {% if video.id == 5 %}
+    <iframe name='proprofs' id='proprofs' height='606' width='770' frameborder=0 marginwidth=0 marginheight=0 src='http://www.proprofs.com/quiz-school/widget/v3/?id=383890&bgcolor=ffffff&fcolor=000000&tcolor=000000&w=750&h=400&ff=1&fs=large&pplink=0&socialmedia=0&embedlink=0&showpage=1&btncolor=000000'></iframe>
+    {% endif %}
+
+    {% if video.id == 6 %}
+    <iframe name='proprofs' id='proprofs' height='606' width='770' frameborder=0 marginwidth=0 marginheight=0 src='http://www.proprofs.com/quiz-school/widget/v3/?id=267615&bgcolor=ffffff&fcolor=000000&tcolor=000000&w=750&h=400&ff=1&fs=large&pplink=0&socialmedia=0&embedlink=0&showpage=1&btncolor=000000'></iframe>
+    {% endif %}
+
+</center>
+<br>
         <script>
 
             var _tracker = null;

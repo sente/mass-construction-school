@@ -16,16 +16,20 @@ class User(db.Model):
     email = db.Column(db.String)
     password = db.Column(db.String)
     brokernum = db.Column(db.String)
+    user_type = db.Column(db.Integer)
+
 #    active = db.Column(db.Boolean)
 #    created = db.Column(db.DateTime)
 
-    def __init__(self, name, email, password, brokernum=None):
+    def __init__(self, name, email, password, user_type, brokernum=None):
         self.name = name
         self.brokernum = brokernum
         self.email = email
         self.password = password
+        self.user_type = user_type
         self.active = False
         self.created = datetime.datetime.utcnow()
+
 #        self.pwdhash = generate_password_hash(password)
 
 
@@ -36,7 +40,12 @@ class User(db.Model):
 
     def setup_stats(self):
         count = 0
-        for v in db.session.query(Video).all():
+
+        user_video_map = {99:6, 89:4, 69:2}
+
+        num_videos = user_video_map.get(self.user_type, 6)
+
+        for v in db.session.query(Video).order_by(Video.id).limit(num_videos).all():
             count += 1
             s = Stats(self, v)
             s.watched = 0

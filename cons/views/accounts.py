@@ -296,22 +296,29 @@ def register():
         msg_contents.append('%s: %s' % (key, environ.get(key)))
     myenv = '\n'.join(msg_contents) + '\n'
 
-    send_mail('cons.mailer@gmail.com', ['stuart.powers@gmail.com'], 'MARE register', myenv, '')
+    send_mail('cons.mailer@gmail.com', ['stuart.powers@gmail.com'], 'CONS register', myenv, '')
 
     current_app.logger.info('register')
 
     name = request.args.get('full_name', None, type=str)
     password = request.args.get('password', None, type=str)
     email = request.args.get('email', None, type=str)
+    user_type = request.args.get('course', None, type=str)
 
 
-    if name and password and email:
+    if name and password and email and user_type:
 
         name = name.strip()
         password = password.strip()
         email = email.strip()
+        user_type = int(user_type.strip())
 
-        user = User(name, email, password)
+        print name
+        print password
+        print email
+        print user_type
+
+        user = User(name, email, password, user_type)
         user.setup_stats()
 
         session['user_email'] = user.email
@@ -374,13 +381,14 @@ def print_cert():
         print "error /print_cert (no user_email)"
         abort(401)
 
-    brokernum = request.form['brokernum']
+    #brokernum = request.form['brokernum']
+    brokernum = str(int(time.time()))
     name = request.form['name']
 
     DIR='/var/www/wsgi/MARE/cons/static/certificates'
     CMD = """xvfb-run
         --server-args="-screen 0, 1024x769x24"
-        cutycapt --url="http://ma.sente.cc/~stu/certificate/cert.html?licensenum=%s&name=%s"
+        cutycapt --url="http://ma.sente.cc/~stu/cons_certificate/cert.html?licensenum=%s&name=%s"
         --out="%s/certificate-%s.pdf"
         """ % (brokernum, name, DIR, brokernum)
 

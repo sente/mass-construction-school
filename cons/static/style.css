@@ -3,13 +3,16 @@ body {
     background: #fff url(http://i.imgur.com/rpcQA.gif) repeat-x left top;
     */
 
-    background: #fff url(/static/images/rpcQA.gif) repeat-x left top;
+    background: #fff;
     font-family: Arial, sans-serif;
     font-size: 14px;
 }
 
+/*
+018D13
+*/
 a {
-    color: #A77502!important;
+    color: #018D13!important;
 }
 
 a:hover {
@@ -139,7 +142,7 @@ div.page div.twitbox {
 div.page div.twitbox h3 {
     margin: 0;
     font-size: 1em;
-    color: #2C7E76;
+    color: #018D13;
 }
 
 div.page div.twitbox p {

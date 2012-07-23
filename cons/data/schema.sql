@@ -14,6 +14,7 @@ CREATE TABLE user (
         email VARCHAR,
         password VARCHAR,
         brokernum INTEGER,
+        user_type INTEGER,
         PRIMARY KEY (uid)
 );
 CREATE TABLE video (

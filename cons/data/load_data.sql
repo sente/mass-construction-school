@@ -16,8 +16,7 @@ INSERT INTO "video" VALUES(6,'video_6',4616,'Video 6');
 
 -- CREATE A TEST USER ENTRY
 
-INSERT INTO "user" VALUES(1,'Stuart Powers','stuart.powers@gmail.com','test',NULL);
-
+INSERT INTO "user" VALUES(1,'Stuart Powers','stuart.powers@gmail.com','test',69,NULL);
 
 -- CREATE STATS ENTIRES FOR THE TEST USER
 

@@ -10,10 +10,14 @@
             </span>
             <span> <i>You can print the certificate at a later time as well.</i> </span>
             <form action="/print_cert" method=post>
+                <input type=hidden name=name value="{{g.user.name}}">
+
+                <!--
                 <dl>
                     <dt>Realtor/Broker #<input type=text name=brokernum size=30 value="">
                     <dd><input type=hidden name=name value="{{g.user.name}}">
                 </dl>
+                -->
                 <div class=actions><input type=submit value="Print Certificate"></div>
             </form>
             <br />
@@ -23,6 +27,7 @@
 
 
 
+    <center>
     <div id="playlist">
         {%- for s in stats -%}
 
@@ -84,7 +89,9 @@
         {% endfor %}
         -->
     </div>
-
+    <br>
+    <br>
+    </center>
     <script>
         $(function(){
             {% for s in stats %}
@@ -93,7 +100,7 @@
         });
     </script>
 
-    <div id="troubleshooting" style="background: #fff url(/static/images/rpcQA.gif) repeat-x left top;">
+    <div id="troubleshooting">
         <center><h1>Trouble Shooting</h1></center>
         <p>Before calling the number below or emailing, please take the following steps:</p>
 
