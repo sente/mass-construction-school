@@ -9,9 +9,9 @@
                 <h3>Congratulations! Print your certificate:</h3>
             </span>
             <span> <i>You can print the certificate at a later time as well.</i> </span>
-            <form action="/print_cert" method=post>
-                <input type=hidden name=name value="{{g.user.name}}">
 
+            <form action="{{url_for('accounts.print_cert')}}" method=post>
+                <input type=hidden name=name value="{{g.user.name}}">
                 <!--
                 <dl>
                     <dt>Realtor/Broker #<input type=text name=brokernum size=30 value="">

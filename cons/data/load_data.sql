@@ -1,10 +1,7 @@
 -- load_data.sql
 -- This should be ran after `schema.sql`
 
-
 -- CREATE VIDEO ENTRIES
-
-
 
 INSERT INTO "video" VALUES(1,'video_1',6089,'Video 1');
 INSERT INTO "video" VALUES(2,'video_2',6394,'Video 2');
@@ -13,10 +10,9 @@ INSERT INTO "video" VALUES(4,'video_4',5886,'Video 4');
 INSERT INTO "video" VALUES(5,'video_5',6489,'Video 5');
 INSERT INTO "video" VALUES(6,'video_6',4616,'Video 6');
 
-
 -- CREATE A TEST USER ENTRY
 
-INSERT INTO "user" VALUES(1,'Stuart Powers','stuart.powers@gmail.com','test',69,NULL);
+INSERT INTO "user" VALUES(1,'Stuart Powers','stuart.powers@gmail.com','test',99,NULL);
 
 -- CREATE STATS ENTIRES FOR THE TEST USER
 

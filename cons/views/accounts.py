@@ -82,7 +82,10 @@ def teardown_request(exception):
 
 @accounts.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('ma-index.html')
+
+    contents = open('/srv/sftponly/shawn/massconstructionschool.com/ce/index.html','r').read()
+    return contents
+#    return render_template('ma-index.html')
 
 
 
@@ -313,10 +316,10 @@ def register():
         email = email.strip()
         user_type = int(user_type.strip())
 
-        print name
-        print password
-        print email
-        print user_type
+        #print name
+        #print password
+        #print email
+        #print user_type
 
         user = User(name, email, password, user_type)
         user.setup_stats()
@@ -385,12 +388,36 @@ def print_cert():
     brokernum = str(int(time.time()))
     name = request.form['name']
 
+
+
+    stats = g.db.session.query(Stats).filter(Stats.user_uid==g.user.uid).all()
+
+    hours = 99
+
+    if len(stats) == 2:
+        hours = 8
+    if len(stats) == 4:
+        hours = 10
+    if len(stats) == 6:
+        hours = 12
+
+#    myusers = g.db.session.query(User).filter(User.email==session['user_email']).all()
+#    myuser = myusers[0]
+#
+#    print myuser.user_type
+#    print myuser.user_type
+#    print myuser.user_type
+#    print myuser.user_type
+#    print myuser.user_type
+#
+
+
     DIR='/var/www/wsgi/MARE/cons/static/certificates'
     CMD = """xvfb-run
         --server-args="-screen 0, 1024x769x24"
-        cutycapt --url="http://ma.sente.cc/~stu/cons_certificate/cert.html?licensenum=%s&name=%s"
+        cutycapt --url="http://ma.sente.cc/~stu/cons_certificate/cert.html?hours=%s&name=%s"
         --out="%s/certificate-%s.pdf"
-        """ % (brokernum, name, DIR, brokernum)
+        """ % (str(hours), name, DIR, brokernum)
 
     cmd = CMD.strip().replace("\n"," ")
 
@@ -409,7 +436,7 @@ def print_cert():
     resp.headers['Content-Type']= 'application/pdf'
 
     try:
-        sendmail("print_cert:%s:%s:%s" % (session['user_email'],request.form['brokernum'],request.form['name']), None)
+        sendmail("print_cert:%s:%s:%s" % (session['user_email'], hours, request.form['name']), None)
     except:
         print "error /print_cert"
 
