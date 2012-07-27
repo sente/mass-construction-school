@@ -191,6 +191,11 @@ def video():
             flash('%s: %s' % (key,os.environ.get(key)))
 
     video = g.db.session.query(Video).filter(Video.id == video_id).first()
+
+
+#    flash(session['user_email'])
+    if session['user_email'] == 'test@test.com':
+        return render_template('video-flv.html', email=g.user.email, video=video, user=g.user, stat=mystat, dev=dev)
     return render_template('video.html', email=g.user.email, video=video, user=g.user, stat=mystat, dev=dev)
 
 
@@ -214,8 +219,12 @@ def watch():
     except:
         pass
 
-    mystats = g.db.session.query(Stats).filter(Stats.video_id==video_id).filter(Stats.user_uid==user_id).all()
-    mystat = mystats[0]
+    try:
+        mystats = g.db.session.query(Stats).filter(Stats.video_id==video_id).filter(Stats.user_uid==user_id).all()
+        mystat = mystats[0]
+    except:
+        current_app.logger.info('ERROR watch:%s:%d:%d:%f' % (session['user_email'],user_id,video_id,timestamp))
+        return jsonify(data="error",reason="bad data")
 
     if mystat.status != mystat.video_id:
         return jsonify(data="error", reason="mystat.status != mystat.video.id")
@@ -394,9 +403,9 @@ def print_cert():
 
     hours = 99
 
-    if len(stats) == 2:
+    if len(stats) == 3:
         hours = 8
-    if len(stats) == 4:
+    if len(stats) == 5:
         hours = 10
     if len(stats) == 6:
         hours = 12

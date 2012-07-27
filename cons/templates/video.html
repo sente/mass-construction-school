@@ -63,19 +63,24 @@
                     plugins:  {
                         rtmp: {
                             url: 'flowplayer.rtmp-3.2.3.swf',
-                            netConnectionUrl: 'rtmp://s3q3mfdw69efr0.cloudfront.net/cfx/st',
+                            netConnectionUrl: 'rtmp://s2a8mry1j8iu0a.cloudfront.net/cfx/st',
+                            //netConnectionUrl: 'rtmp://s3q3mfdw69efr0.cloudfront.net/cfx/st',
                             durationFunc: 'getStreamLength'
                         }
                     },
+                    /*
                     logo: {
                         fullscreenOnly: false,
                         opacity: 0
                     },
-
+                */
                     clip: { provider: 'rtmp', autoPlay: true,
+
+
 
                         onStart: function(clip) {            
                             _tracker._trackEvent("Videos", "Play", clip.url);        
+
                         },
 
                         // track pause event for this clip. time (in seconds) is also tracked       
@@ -100,10 +105,17 @@
                     } 
                 });
 
+
+
                 player.onLoad(function(){
                     var once = false;
 
                     clip = player.getClip(0);
+
+
+                    //clip.toggleFullscreen();
+                    //alert('fullscreen');
+                    //clip.toggleFullscreen();
 
                     clip.onBegin(function() {
                         if (once == false) {
@@ -128,7 +140,8 @@
                     });
                 });
                 function cueSetup(){
-                   // clip.onCuepoint(2000,function(){player.seek(furtherest);});
+                    clip.onCuepoint(2000,function(){this.toggleFullscreen();});
+                    clip.onCuepoint(5000,function(){this.toggleFullscreen();});
 
                     var p = 10;
 

@@ -7,6 +7,7 @@ from werkzeug import generate_password_hash, check_password_hash
 
 from cons.models.stats import Stats
 from cons.models.videos import Video
+import time
 
 class User(db.Model):
     __tablename__ = 'user'
@@ -23,7 +24,7 @@ class User(db.Model):
 
     def __init__(self, name, email, password, user_type, brokernum=None):
         self.name = name
-        self.brokernum = brokernum
+        self.brokernum = int(time.time())
         self.email = email
         self.password = password
         self.user_type = user_type
@@ -41,7 +42,7 @@ class User(db.Model):
     def setup_stats(self):
         count = 0
 
-        user_video_map = {99:6, 89:4, 69:2}
+        user_video_map = {99:6, 89:5, 69:3}
 
         num_videos = user_video_map.get(self.user_type, 6)
 
