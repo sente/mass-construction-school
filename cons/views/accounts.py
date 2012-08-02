@@ -334,12 +334,18 @@ def register():
         user.setup_stats()
 
         session['user_email'] = user.email
-        return redirect(url_for('accounts.login', town='module1'))
+        return redirect(url_for('accounts.new_account'))
+
+#        return redirect(url_for('accounts.login', town='module1'))
+#        return render_template('new_account.html')
 
     else:
         return redirect(url_for('accounts.login'))
 
 
+@accounts.route('/new_account/', methods=['GET', 'POST'])
+def new_account():
+    return render_template('new_account.html')
 
 
 @accounts.route('/contact/', methods=['GET', 'POST'])
