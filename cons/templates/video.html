@@ -63,9 +63,16 @@
                     plugins:  {
                         rtmp: {
                             url: 'flowplayer.rtmp-3.2.3.swf',
-                            netConnectionUrl: 'rtmp://s2a8mry1j8iu0a.cloudfront.net/cfx/st',
+                            netConnectionUrl: 'rtmp://ssougjsh2mhk8.cloudfront.net/cfx/st', // new CDN against mass-construction-school
+                            //netConnectionUrl: 'rtmp://s2a8mry1j8iu0a.cloudfront.net/cfx/st',
                             //netConnectionUrl: 'rtmp://s3q3mfdw69efr0.cloudfront.net/cfx/st',
                             durationFunc: 'getStreamLength'
+                        },
+                        controls: {
+                            timeBgColor:'#000000',
+                            timeColor: '#000000',
+                            timeFontSize: 1,
+                            timeBgHeightRatio: 0.1
                         }
                     },
                     /*
@@ -121,6 +128,7 @@
                         if (once == false) {
                             cueSetup();
                             once = true;
+                            player.seek(0);
                             player.seek({{stat.watched}});
                         }
                     });

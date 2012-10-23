@@ -3,12 +3,12 @@
 
 -- CREATE VIDEO ENTRIES
 
-INSERT INTO "video" VALUES(1,'video_1',6089,'Video 1');
+INSERT INTO "video" VALUES(1,'video_1',4616,'Video 1');
 INSERT INTO "video" VALUES(2,'video_2',6394,'Video 2');
 INSERT INTO "video" VALUES(3,'video_3',5577,'Video 3');
 INSERT INTO "video" VALUES(4,'video_4',5886,'Video 4');
 INSERT INTO "video" VALUES(5,'video_5',6489,'Video 5');
-INSERT INTO "video" VALUES(6,'video_6',4616,'Video 6');
+INSERT INTO "video" VALUES(6,'video_6',6089,'Video 6');
 
 -- CREATE A TEST USER ENTRY
 

@@ -173,8 +173,13 @@ def video():
     dev = request.args.get('dev', 0, type=int)
 
 
-    mystats = g.db.session.query(Stats).filter(Stats.video_id==video_id).filter(Stats.user_uid==user_id).all()
-    mystat = mystats[0]
+    try:
+        mystats = g.db.session.query(Stats).filter(Stats.video_id==video_id).filter(Stats.user_uid==user_id).all()
+        mystat = mystats[0]
+    except:
+        flash('Invalid request received')
+        return redirect(url_for('accounts.videos'))
+
 
     # TODO: de-uglify!!!
 
