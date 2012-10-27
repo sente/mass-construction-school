@@ -46,7 +46,7 @@
 
                             <img src="{{url_for('static', filename='images/%s_small.jpg' % s.video.module)}}" />
                             <br />
-                            <strong>{{(100*s.watched)//s.video.duration}}%</strong>
+                            <strong>2 hrs - {{(100*s.watched)//s.video.duration}}%</strong>
                         </a>
                         <div id="stats_{{s.uid}}" class="progressbar"></div>
                     </div>
@@ -64,7 +64,7 @@
                         <strong>{{s.video.title}}</strong><br>
                         <img src="{{url_for('static', filename='images/%s_small.jpg' % s.video.module)}}" />
                         <br />
-                        <strong>{{(100*s.watched)//s.video.duration}}%</strong>
+                        <strong>2 hrs - {{(100*s.watched)//s.video.duration}}%</strong>
                     </a>
                     <div id="stats_{{s.uid}}" class="progressbar"></div>
                 </div>
@@ -74,7 +74,7 @@
                         <strong>{{s.video.title}}</strong><br>
                         <img src="{{url_for('static', filename='images/%s_small.jpg' % s.video.module)}}" />
                         <br />
-                        <strong>{{(100*s.watched)//s.video.duration}}%</strong>
+                        <strong>2 hrs - {{(100*s.watched)//s.video.duration}}%</strong>
                         </a> 
                     <div id="stats_{{s.uid}}" class="progressbar"></div>
                 </div>

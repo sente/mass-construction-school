@@ -129,7 +129,7 @@
                             cueSetup();
                             once = true;
                             player.seek(0);
-                            player.seek({{stat.watched}});
+                            //player.seek({{stat.watched}});
                         }
                     });
 
@@ -203,6 +203,7 @@
                     player.play();
                 });
                 player.play();
+                window.setTimeout('player.seek({{stat.watched}})',10000);
             });
         </script>
 
