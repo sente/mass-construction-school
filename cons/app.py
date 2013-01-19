@@ -36,7 +36,7 @@ def setup_mail_handler():
     from logging.handlers import SMTPHandler
 
     ADMINS = ['stuart.powers@gmail.com']
-    mail_handler = SMTPHandler('smtp.gmail.com', 'cons.mailer@gmail.com', ADMINS, 'New Video Uploaded',('cons.mailer','conspasstown',))
+    mail_handler = SMTPHandler('smtp.gmail.com', 'massconstructionschool@gmail.com', ADMINS, 'New Video Uploaded',('massconstructionschool@gmail.com',app.config['MAIL_PASSWORD'],))
     mail_handler.setLevel(logging.DEBUG)
 
     mail_handler.setFormatter(Formatter('''

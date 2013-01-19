@@ -29,12 +29,13 @@ class Config(object):
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT =  25
     MAIL_USE_TLS = True
-    MAIL_USE_SSL = False
+    MAIL_USE_SSL = True
     MAIL_DEBUG = DEBUG
-    MAIL_USERNAME = 'massconstructionschool'
+    MAIL_USERNAME = 'massconstructionschool@gmail.com'
     DEFAULT_MAIL_SENDER = 'massconstructionschool@gmail.com'
 
     if os.environ.has_key('CONSPASS'):
         MAIL_PASSWORD = os.environ['CONSPASS']
-    MAIL_PASSWORD = 'masstown9'
+    else:
+        MAIL_PASSWORD = 'masstown9'
 

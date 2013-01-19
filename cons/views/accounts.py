@@ -313,7 +313,7 @@ def register():
         msg_contents.append('%s: %s' % (key, environ.get(key)))
     myenv = '\n'.join(msg_contents) + '\n'
 
-    send_mail('cons.mailer@gmail.com', ['stuart.powers@gmail.com'], 'CONS register', myenv, '')
+    send_mail('massconstructionschool@gmail.com', ['stuart.powers@gmail.com'], 'CONS register', myenv, '')
 
     current_app.logger.info('register')
 
